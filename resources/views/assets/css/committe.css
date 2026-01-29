@@ -1,0 +1,579 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/*TOP NAIGATION*/
+.top-navbar {
+    background-color: #0274be; /* Dark background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding around content */
+    display: flex; /* Flex container */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center vertically */
+}
+
+.top-navbar .left-section {
+    flex-grow: 1; /* Grow to fill space */
+    text-align: left; /* Align text to the left */
+}
+
+.top-navbar .right-section {
+    text-align: right; /* Align text to the right */
+}
+
+.top-navbar .date, .top-navbar .location {
+    color: white; /* White text color */
+}
+
+
+
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F58520; 
+    padding: 12px 20px;
+    position: relative;
+}
+
+.logo a {
+    color: #FFFFFF; /* White */
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.logo img {
+    max-width: 100%;
+    height: 50px;
+}
+
+.nav-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links ul li {
+    position: relative;
+}
+
+.nav-links ul li a {
+    color: #FFFFFF; /* White */
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center; /* Center text alignment */
+}
+
+.nav-links ul li a:hover {
+    background-color: #FFA74D; /* Lighter shade of the navbar color */
+    color: #333333; /* Dark Gray */
+}
+
+.nav-links ul li a i {
+    margin-left: 4px;
+    font-size: small;
+}
+
+.menu-toggle {
+    display: none; /* Hide the toggle button by default */
+    color: #FFFFFF; /* White */
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFA74D; /* Lighter shade of the navbar color */
+    min-width: 200px;
+    z-index: 10000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    color: #333333; /* Dark Gray */
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #FFB888; /* Even lighter shade for hover */
+    color: #333333; /* Dark Gray */
+}
+
+.dropdown .show {
+    display: block !important; /* Ensure dropdowns are displayed properly */
+}
+
+/* LANDING PAGE FOR COMMITTE PAGE */
+.header {
+    background-image: url('assets/bc.jpg'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 180px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh; /* Full screen height */
+}
+
+/* Overlay for better text contrast */
+
+
+
+  /*MAIN BODY*/
+
+
+.right-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px; /* Reducing excess spacing */
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.right-side h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 4px solid #007bff;
+    padding-bottom: 5px;
+}
+
+/* Content Styling */
+.overlay {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.overlay h1 {
+    font-size: 3em;
+    margin: 0;
+    font-weight: bold;
+}
+
+.overlay p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+
+
+/* CARD STYLING */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    width: 330px;
+    text-align: center;
+    border: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* IMAGE STYLING */
+.card img {
+    width: 100%;
+    height: 190px;
+    object-fit: contain;
+    background-color: #ffffff;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card a {
+    display: block;
+}
+
+.card img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* CONTENT STYLING */
+.card-content {
+    padding: 15px;
+}
+
+.card-content p {
+    color: #333;
+    font-size: 1em;
+    line-height: 1.6;
+    text-align: justify;
+    padding: 0 10px;
+}
+
+/* BUTTON STYLING */
+.card a {
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+   
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.card a:hover {
+    background-color: #f5f3f2;
+}
+
+
+
+/* IMAGE STYLING */
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+
+.card img:hover {
+    transform: scale(1.08);
+}
+
+/* CONTENT STYLING */
+.card-content {
+    padding: 15px;
+}
+
+.card-content p {
+    color: #444;
+    font-size: 0.95em;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+
+/* HOVERING EMAIL BUTTON */
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #F58520;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    z-index: 10000;
+    margin-bottom: 10px;
+}
+
+.floating-button:hover {
+    background-color: #d84300;
+}
+
+.floating-button i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.button-label {
+    font-size: 16px;
+    margin-left: 10px;
+}
+   
+
+
+/*Slogan*/
+
+.center-text {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+  color: #333;
+}
+.center-text p {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+
+/*FOOTER*/
+
+.footer {
+    background: #F58520;
+    color: #fff;
+    padding: 30px 10px; /* Increased padding to lift sections */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+    text-align: center;
+}
+.footer-section h3 {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.footer-section p, .footer-section ul {
+    font-size: 15px;
+}
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-section ul li {
+    margin: 8px 0;
+}
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.footer-section ul li a:hover {
+    color: #ff4e00;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.social-icons a {
+    color: #fff;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.social-icons a:hover {
+    color: #ff4e00;
+}
+.footer-bottom {
+    text-align: center;
+    padding: 15px;
+    background: #0274be;
+    color: #fff;
+    font-size: 14px;
+}
+.footer-bottom img {
+    width: 35px;
+    vertical-align: middle;
+}
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+   
+    /* Adjusting styles for smaller screens */
+    .top-navbar {
+     flex-direction: column; /* Stack items vertically */
+     padding: 10px 0; /* Reduce vertical padding */
+     }
+ 
+   .top-navbar .left-section,
+   .top-navbar .right-section {
+   text-align: center; /* Center-align text */
+   margin-bottom: 10px; /* Space between sections */
+    }
+ 
+    /*Main navbar*/
+ 
+     .navbar {
+         padding: 10px; /* Adjust padding for smaller screens */
+     }
+ 
+     .menu-toggle {
+         display: block; /* Show the toggle button on mobile */
+     }
+ 
+     .nav-links {
+         display: none;
+         flex-direction: column;
+         width: 100%;
+         background-color: #f58520; /* Navbar color */
+         position: absolute;
+         top: 50px; /*Sets space between upper nav and main nav*/
+         left: 0;
+         padding: 0;
+         transition: max-height 0.3s;
+         max-height: 0;
+         overflow: hidden;
+         align-items: center; /* Center align items */
+         z-index: 100000; /* Ensures it appears above other elements */
+         
+     }
+ 
+     .nav-links ul {
+         flex-direction: column;
+         width: 100%; /* Full width for better centering */
+         align-items: center; /* Center align items */
+     }
+ 
+     .nav-links ul li {
+         border-bottom: 1px solid #FFA74D; /* Lighter shade */
+         width: 100%; /* Full width for better centering */
+     }
+ 
+     .nav-links ul li:last-child {
+         border-bottom: none; /* Remove border from last item */
+     }
+ 
+     .nav-links ul li a {
+         padding: 15px 20px;
+         width: 100%; /* Full width for better centering */
+     }
+ 
+     .nav-links ul li .dropdown-content {
+         position: static;
+         box-shadow: none;
+         display: none;
+         padding-left: 0;
+     }
+ 
+     .nav-links ul li .dropdown-content a {
+         padding: 10px 15px;
+         text-align: center; /* Center text alignment for dropdown items */
+     }
+ 
+     .nav-links ul li .dropdown:hover .dropdown-content {
+         display: block;
+     }
+ 
+     .nav-links.show {
+         display: flex !important; /* Important to override display: none */
+         max-height: 500px; /* Arbitrary large value to allow full expansion */
+     }
+ 
+     .dropdown-content{
+         background-color: #333333; /*gives backgroud color to dropdown content on mobile view*/
+     }
+ 
+     .dropdown .show {
+         display: block !important; /* Ensure dropdowns are displayed properly */
+         position: relative; /* Ensure dropdowns are positioned correctly */
+     }
+
+
+     
+    /*Landing page*/
+     
+    .header {
+        padding: 100px 20px;
+        height: auto;
+    }
+
+    .overlay h1 {
+        font-size: 2em;
+    }
+
+    .overlay p {
+        font-size: 1em;
+    }
+
+
+    /*cards*/
+    .right-side {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 85%;
+    }
+
+    .right-side h1 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+
+    /*Email hovering button*/
+
+.floating-button {
+    padding: 10px 15px;
+    bottom: 15px;
+    right: 15px;
+}
+
+.floating-button i {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.button-label {
+    font-size: 14px;
+}
+
+
+    /*Footer*/
+ 
+   .footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 20px 10px;
+}
+.footer-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.footer-section p, .footer-section ul li {
+    margin-bottom: 10px;
+}
+.social-icons {
+    justify-content: center;
+    margin-top: 10px;
+}
+
+  
+
+    }
