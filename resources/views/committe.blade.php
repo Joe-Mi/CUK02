@@ -5,7 +5,7 @@
 
         <!--The State Department of Co-operatives-->
         <div class="card" id="The State Department of Co-operatives">
-            <a href="https://ushirika.go.ke/" target="_blank"><img src="assets/img/coat of arms.png" alt="Partner 1"></a>
+            <a href="https://ushirika.go.ke/" target="_blank"><img src="{{ asset('assets/img/coat of arms.png') }}" alt="Partner 1"></a>
             <p><b>State Department for Co-operatives (MSMEs)</b></p>
             <div class="card-content">
                 <p> 
@@ -17,7 +17,7 @@
 
         <!--CUK-->
         <div class="card" id="card2">
-            <a href="https://cuk.ac.ke/" target="_blank"><img src="assets/img/coop uni.png" alt="Partner 2"></a>
+            <a href="https://cuk.ac.ke/" target="_blank"><img src="{{ asset('assets/img/coop uni.png') }}" alt="Partner 2"></a>
             <P><b>The Co-operative University of Kenya</b></P>
             <div class="card-content">
                 <p> 
@@ -29,7 +29,7 @@
 
         <!--COOP MOSHI-->
         <div class="card" id="card3">
-            <a href="https://www.mocu.ac.tz/" target="_blank"><img src="assets/img/moshi uni.jpg" alt="Partner 3"></a>
+            <a href="https://www.mocu.ac.tz/" target="_blank"><img src="{{ asset('assets/img/moshi uni.jpg') }}" alt="Partner 3"></a>
             <p><b>Moshi Co-operative University – Tanzania</b></p>
             <div class="card-content">
                 <p> 

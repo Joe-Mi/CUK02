@@ -18,7 +18,7 @@
         <main>
             <!--TOP FOOTER-->
             <div>
-                <img src="assets/img/footer banner.jpg" alt="Banner" style="max-width:500px; width:40%; height:auto;">
+                <img src="{{ asset('assets/img/footer banner.jpg') }}" alt="Banner" style="max-width:500px; width:40%; height:auto;">
             </div>
         </main>
     </div>

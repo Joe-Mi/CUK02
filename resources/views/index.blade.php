@@ -35,7 +35,7 @@
             <div class="popup-box">
                 <button class="close-btn" onclick="closePopup()">X</button>
                 <a href="https://forms.gle/dnksXCo24Ju1mYJ5A" target="_blank" class="image-link">
-                    <img src="assets/img/Conference banner 2025B.jpg" alt="Event Poster">
+                    <img src="{{ asset('assets/img/Conference banner 2025B.jpg') }}" alt="Event Poster">
             </div>
         </div>
 
@@ -58,13 +58,13 @@
             </div>
 
             <div class="image-content">
-                <img src="assets/img/ps.jpg" alt="Principal Secretary Image">
+                <img src="{{ asset('assets/img/ps.jpg') }}" alt="Principal Secretary Image">
             </div>
         </section>
 
         <section class="vc">
             <div class="vc-image">
-                <img src="assets/img/VC CUKS.JPG" alt="Vice Chancellor Image">
+                <img src="{{ asset('assets/img/VC CUKS.JPG') }}" alt="Vice Chancellor Image">
             </div>
             <div class="vc-text">
                 <h2>Message from the Vice Chancellor, CUK.</h2>
@@ -122,13 +122,13 @@
             </div>
 
             <div class="image-content">
-                <img src="assets/img/Prof_Alfred_Said_Sife.jpg" alt="VC Moshi cooperative Uni">
+                <img src="{{ asset('assets/img/Prof_Alfred_Said_Sife.jpg') }}" alt="VC Moshi cooperative Uni">
             </div>
         </section>
         <div class="main-wrapper">
             <div class="download-container">
                 <h2 class="download-heading">Download the Joint Co-operative Conference 2025 concept note </h2>
-                <a href="assets/docs/JOINT CO-OPERATIVE CONFERENCE 2025 CONCEPT NOTE.pdf" class="download-btn" target="_blank" download>
+                <a href="{{ asset('assets/docs/JOINT CO-OPERATIVE CONFERENCE 2025 CONCEPT NOTE.pdf') }}" class="download-btn" target="_blank" download>
                     <i class="fas fa-file-pdf download-icon"></i> Download PDF
                 </a>
             </div>
@@ -136,7 +136,7 @@
         <body class="page">
             <div class="section container">
                 <div class="image">
-                    <img src="assets/img/background 1.jpg" alt="Image 1">
+                    <img src="{{ asset('assets/img/background 1.jpg') }}" alt="Image 1">
                 </div>
                 <div class="content">
                     <h2>WHY THE JOINT CO-OPERATIVE CONFERENCE 2025</h2>
@@ -163,7 +163,7 @@
             <div class="section container reverse">
                 <div class="image">
 
-                    <img src="assets/img/background 2.jpg" alt="Image 2">
+                    <img src="{{ asset('assets/img/background 2.jpg') }}" alt="Image 2">
 
                 </div>
                 <div class="content">
