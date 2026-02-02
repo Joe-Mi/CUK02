@@ -1,4 +1,7 @@
 <x-layout>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets/css/committe.css') }}">
+    @endpush
     <!---Main body--->
     <div class="right-side">
         <h1>Joint Co-operative Conference 2025 Organizers</h1>

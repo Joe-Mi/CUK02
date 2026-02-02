@@ -25,10 +25,9 @@
                     <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
                 </div>
                 <div class="buttons">
-                    <a href="registration.php" class="btn"><i class="fas fa-user-plus"></i> Register Now</a>
-                    <a href="program.php" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> View Schedule</a>
+                    <a href="{{ route('register') }}" class="btn"><i class="fas fa-user-plus"></i> Register Now</a>
+                    <a href="{{ route('program') }}" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> View Schedule</a>
                 </div>
-
             </div>
         </section>
         <div class="popup-container" id="popup">

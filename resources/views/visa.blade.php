@@ -1,4 +1,7 @@
 <x-layout>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets/css/visa.css') }}">
+    @endpush
     <!-- Landing Page -->
     <div class="header">
         <div class="overlay">

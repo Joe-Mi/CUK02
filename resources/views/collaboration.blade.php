@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <x-layout>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets/css/collaboration.css') }}">
+    @endpush
   <x-slot:title>
       landing
   </x-slot:title>
