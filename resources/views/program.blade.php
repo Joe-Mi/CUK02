@@ -71,36 +71,44 @@
                     <tr>
                         <th>Event</th>
                         <th>Date</th>
+                        <th>status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1st Call for Papers & Abstracts</td>
                         <td>15th January, 2025</td>
+                        <td>closed</td>
                     </tr>
                     <tr>
                         <td>Early Bird Registration Opens</td>
                         <td>15th March, 2025</td>
+                        <td>unavaliable</td>
                     </tr>
                     <tr>
                         <td>2nd Call for Papers & Abstracts</td>
                         <td>14th March, 2025</td>
+                        <td>unavaliable</td>
                     </tr>
                     <tr>
                         <td>Last Date for Submission of Papers & Abstracts</td>
                         <td>21st May, 2025</td>
+                        <td>unavaliable</td>
                     </tr>
                     <tr>
                         <td>Last Date for FULL PAPERS Submission</td>
                         <td>2nd June, 2025</td>
+                        <td>unavaliable</td>
                     </tr>
                     <tr>
                         <td>Last Date for Registration</td>
                         <td>14th July, 2025</td>
+                        <td>unavaliable</td>
                     </tr>
                     <tr>
                         <td><strong>Conference Date</strong></td>
                         <td><strong>22nd – 24th July, 2025</strong></td>
+                        <td>unavaliable</td>
                     </tr>
                 </tbody>
             </table>

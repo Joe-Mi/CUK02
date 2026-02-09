@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ isset($title) ? $title . ' - Chirper' : 'Chirper' }}</title>
+    <title>{{ isset($title) ? $title . ' - CUK' : 'Co-operative University of Kenya' }}</title>
     <link rel="preconnect" href="<https://fonts.bunny.net>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
