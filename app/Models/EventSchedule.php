@@ -13,11 +13,12 @@ class EventSchedule extends Model
         'event_id',
         'title',
         'speaker',
-        'venue',
+        'location',
         'date',
         'start',
         'end',
         'attendance',
+        'status',
     ];
 
     public function event()

@@ -12,8 +12,17 @@ class eventController extends Controller
      */
     public function index()
     {
-        $events = Event::with('keyDates')->paginate(10);
+        $events = Event::with(['keyDates', 'ticketTypes'])->paginate(10);
         return view('admin.events.index', compact('events'));
+    }
+
+    /**
+     * Display the public index page with the active event.
+     */
+    public function publicIndex()
+    {
+        $event = Event::where('status', 'active')->first();
+        return view('index', compact('event'));
     }
 
     /**
@@ -34,12 +43,16 @@ class eventController extends Controller
             'venue' => 'required|string|max:255',
             'duration' => 'nullable|integer',
             'capacity' => 'nullable|integer',
+            'status' => 'required|string',
             'key_dates' => 'nullable|array',
             'key_dates.*.title' => 'required|string',
             'key_dates.*.type' => 'required|string',
             'key_dates.*.start_date' => 'required|date',
             'key_dates.*.end_date' => 'required|date',
             'key_dates.*.status' => 'required|string',
+            'ticket_types' => 'nullable|array',
+            'ticket_types.*.type' => 'required|string',
+            'ticket_types.*.price' => 'required|numeric',
         ]);
 
         $event = Event::create($validated);
@@ -47,6 +60,12 @@ class eventController extends Controller
         if (!empty($validated['key_dates'])) {
             foreach ($validated['key_dates'] as $date) {
                 $event->keyDates()->create($date);
+            }
+        }
+
+        if (!empty($validated['ticket_types'])) {
+            foreach ($validated['ticket_types'] as $ticketType) {
+                $event->ticketTypes()->create($ticketType);
             }
         }
 
@@ -66,7 +85,7 @@ class eventController extends Controller
      */
     public function edit(Event $event)
     {
-        $event->load('keyDates');
+        $event->load(['keyDates', 'ticketTypes']);
         return view('admin.events.edit', compact('event'));
     }
 
@@ -75,11 +94,13 @@ class eventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'venue' => 'required|string|max:255',
             'duration' => 'nullable|integer',
             'capacity' => 'nullable|integer',
+            'status' => 'required|string',
             'key_dates' => 'nullable|array',
             'key_dates.*.id' => 'nullable|exists:key_dates,id',
             'key_dates.*.title' => 'required|string',
@@ -88,6 +109,11 @@ class eventController extends Controller
             'key_dates.*.end_date' => 'required|date',
             'key_dates.*.status' => 'required|string',
             'remove_key_dates' => 'nullable|array', // IDs to remove
+            'ticket_types' => 'nullable|array',
+            'ticket_types.*.id' => 'nullable|exists:ticket_types,id',
+            'ticket_types.*.type' => 'required|string',
+            'ticket_types.*.price' => 'required|numeric',
+            'remove_ticket_types' => 'nullable|array',
         ]);
 
         $event->update($validated);
@@ -108,6 +134,24 @@ class eventController extends Controller
 
         if (!empty($validated['remove_key_dates'])) {
             $event->keyDates()->whereIn('id', $validated['remove_key_dates'])->delete();
+        }
+
+        // Handle Ticket Types
+        if (!empty($validated['ticket_types'])) {
+            foreach ($validated['ticket_types'] as $typeData) {
+                if (isset($typeData['id'])) {
+                    $ticketType = $event->ticketTypes()->find($typeData['id']);
+                    if ($ticketType) {
+                        $ticketType->update($typeData);
+                    }
+                } else {
+                    $event->ticketTypes()->create($typeData);
+                }
+            }
+        }
+
+        if (!empty($validated['remove_ticket_types'])) {
+            $event->ticketTypes()->whereIn('id', $validated['remove_ticket_types'])->delete();
         }
 
         return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');

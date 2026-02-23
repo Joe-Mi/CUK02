@@ -52,7 +52,7 @@
                     </div>
                 </li>
                 <li><a href="{{ route('wall') }}"><i class="fas fa-bullseye"></i> Ushirika Wall of Fame (2026) </a></li>
-                <li><a href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Register </a></li>
+                <li><a href="{{ route('tickets.index') }}"><i class="fas fa-user-plus"></i> Register </a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">
                         <i class="fas fa-info-circle"></i>Conference 2026<i class="fas fa-caret-down"></i>

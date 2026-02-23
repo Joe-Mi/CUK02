@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\eventController;
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -10,11 +13,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('events', eventController::class);
+    Route::resource('attendance', AttendanceController::class);
+    Route::get('/statistics', [StatisticsController::class, 'show'])->name('statistics');
 });
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', [eventController::class, 'publicIndex'])->name('home');
 
 Route::get('/committee', function () {
     return view('committe');
@@ -44,9 +47,9 @@ Route::get('/wall', function () {
     return view('wall');
 })->name('wall');
 
-Route::get('/register', function () {
-    return view('registration');
-})->name('register');
+Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
+Route::post('/ticket/store', [TicketController::class, 'store'])->name('tickets.store');
 
 // Assuming welcome is the 2026 conference page as referenced by cuk9/index.php
 Route::get('/conference2026', function () {

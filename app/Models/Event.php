@@ -15,6 +15,7 @@ class Event extends Model
         'venue',
         'duration',
         'capacity',
+        'status',
     ];
 
     public function user()

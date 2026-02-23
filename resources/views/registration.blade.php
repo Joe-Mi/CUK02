@@ -1,7 +1,7 @@
 <x-layout>
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('assets/css/registration.css') }}">
-    @endpush
+  @push('styles')
+  <link rel="stylesheet" href="{{ asset('assets/css/registration.css') }}">
+  @endpush
   <!-- Landing Page -->
   <div class="header">
     <div class="overlay">
@@ -12,6 +12,16 @@
 
   <!-- Main body -->
   <div class="container">
+    @foreach($ticketTypes as $ticketType)
+    <div class="card">
+      <h2><i class="fas fa-user-tie"></i>{{$ticketType->type}}</h2>
+      <div class="price">KES {{$ticketType->price}} (VAT inclusive)</div>
+      <p><strong>Price per delegate</strong></p>
+      <a href="{{ url('/ticket/create') }}?type={{$ticketType->id}}">
+        <button>Register Now</button>
+      </a>
+    </div>
+    @endforeach
 
     <!-- Participant Card -->
     <div class="card">
@@ -20,24 +30,10 @@
       </p>
       <div class="price">KES 69,600 (USD 553) (VAT inclusive)</div>
       <p><strong>Price per delegate</strong></p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdlvPir8ZjZKxV4eqdTUmhR2JkJqEwFz_uaJxUV2RfvdDn8Fw/viewform?usp=header"
-        target="_blank">
+      <a href="{{ url('/ticket/create') }}">
         <button>Register Now</button>
       </a>
     </div>
-
-    <!-- Paper Presenters Card -->
-    <div class="card">
-      <h2><i class="fas fa-file-lines"></i> Paper Presenters Registration</h2>
-      <div class="price">KES 15,000 (or equivalent in USD)</div>
-    </div>
-
-    <!-- Virtual Paper Presenters Card -->
-    <div class="card">
-      <h2><i class="fas fa-chalkboard"></i> Virtual Paper Presenters Registration Fee</h2>
-      <div class="price">KES 5,000 (or equivalent in USD)</div>
-    </div>
-
   </div>
 
   <!-- Payment details -->

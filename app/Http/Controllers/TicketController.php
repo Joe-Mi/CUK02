@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Ticket;
+use App\Models\TicketType;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -12,15 +14,28 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $event = Event::where('status', 'active')
+            ->with('ticketTypes')
+            ->first();
+
+        $ticketTypes = $event?->ticketTypes;
+
+        return view('registration', compact('ticketTypes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $event = Event::where('status', 'active')
+            ->with('ticketTypes')
+            ->first();
+
+        $ticketTypes = $event?->ticketTypes;
+
+        return view('ticket', compact('ticketTypes'));
     }
 
     /**
