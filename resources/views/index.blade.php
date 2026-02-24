@@ -3,20 +3,23 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JETELD42YM"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-JETELD42YM');
     </script>
+
     <body>
         <section class="intro-section">
             <div class="overlay">
             </div>
             <div class="content">
-                <h1>Welcome to the Joint Co-operative Conference 2025</h1>
+                <h1>Welcome to the {{ $event->title ?? 'Joint Co-operative Conference' }}</h1>
                 <p>
-                    The 3rd Co-operative Movement Stakeholders' Annual Conference & The 8th CUK Annual Scientific Conference
-                    2025
+                    {{ $event->title ?? 'Joint Co-operative Conference' }}
                 </p>
                 <div class="countdown">
                     <div class="time-box"><span id="days">00</span><small>Days</small></div>
@@ -25,7 +28,7 @@
                     <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
                 </div>
                 <div class="buttons">
-                    <a href="{{ route('register') }}" class="btn"><i class="fas fa-user-plus"></i> Register Now</a>
+                    <a href="{{ route('tickets.index') }}" class="btn"><i class="fas fa-user-plus"></i> Register Now</a>
                     <a href="{{ route('program') }}" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> View Schedule</a>
                 </div>
             </div>
@@ -132,6 +135,7 @@
                 </a>
             </div>
         </div>
+
         <body class="page">
             <div class="section container">
                 <div class="image">
@@ -166,9 +170,6 @@
 
                 </div>
                 <div class="content">
-
-
-
                     <p>This being the 2025 UN International Year of Co-operatives, the 3 rd Co-operative Movement
                         Stakeholders’ Annual Conference will be held alongside the 8 th CUK Annual Conference to
                         leverage on the pool of rich of stakeholders, policymakers, co-operative practitioners,
@@ -198,7 +199,6 @@
 
                 </div>
             </div>
-            <!--MAIL HOVERING BUTTON-->
             <a href="mailto:coopconference@cuk.ac.ke" class="floating-button">
                 <i class="fas fa-envelope"></i>
                 <span class="button-label">Need help? Send us an email</span>
