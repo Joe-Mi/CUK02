@@ -18,7 +18,9 @@ class TicketController extends Controller
             ->with('ticketTypes')
             ->first();
 
-        $ticketTypes = $event?->ticketTypes;
+        // Ensure we pass an iterable (collection) to the view even when there's
+        // no active event to avoid foreach() null errors in the Blade template.
+        $ticketTypes = $event?->ticketTypes ?? collect();
 
         return view('registration', compact('ticketTypes'));
     }
@@ -33,7 +35,8 @@ class TicketController extends Controller
             ->with('ticketTypes')
             ->first();
 
-        $ticketTypes = $event?->ticketTypes;
+        // Provide an empty collection if no event is active to keep views safe.
+        $ticketTypes = $event?->ticketTypes ?? collect();
 
         return view('ticket', compact('ticketTypes'));
     }

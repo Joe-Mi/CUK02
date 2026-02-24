@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :hide-navbar="true">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JETELD42YM"></script>
     <script>
@@ -13,26 +13,7 @@
     </script>
 
     <body>
-        <section class="intro-section">
-            <div class="overlay">
-            </div>
-            <div class="content">
-                <h1>Welcome to the {{ $event->title ?? 'Joint Co-operative Conference' }}</h1>
-                <p>
-                    {{ $event->title ?? 'Joint Co-operative Conference' }}
-                </p>
-                <div class="countdown">
-                    <div class="time-box"><span id="days">00</span><small>Days</small></div>
-                    <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
-                    <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
-                    <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
-                </div>
-                <div class="buttons">
-                    <a href="{{ route('tickets.index') }}" class="btn"><i class="fas fa-user-plus"></i> Register Now</a>
-                    <a href="{{ route('program') }}" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> View Schedule</a>
-                </div>
-            </div>
-        </section>
+        @include('heropg')
         <div class="popup-container" id="popup">
             <div class="popup-box">
                 <button class="close-btn" onclick="closePopup()">X</button>
@@ -73,7 +54,8 @@
                 <p>I welcome all our stakeholders to the Joint Co-operative Conference 2025 that is organized
                     by the State Department for Co-operatives, Moshi Co-operative University, Tanzania, and
                     CUK, guided by the theme “<b><i>Co-operatives Build a Better World: Re-energizing the
-                            Collective Power of Co-operatives in Africa</i></b>”. The conference comes a few months after
+                            Collective Power of Co-operatives in Africa</i></b>”. The conference comes a few months
+                    after
                     the
                     successful hosting of the Joint Co-operative Conference 2024 that was organized by the State
                     Department for Co-operatives, Platform Cooperativism Consortium (PCC) and CUK, and
@@ -130,7 +112,8 @@
         <div class="main-wrapper">
             <div class="download-container">
                 <h2 class="download-heading">Download the Joint Co-operative Conference 2025 concept note </h2>
-                <a href="{{ asset('assets/docs/JOINT CO-OPERATIVE CONFERENCE 2025 CONCEPT NOTE.pdf') }}" class="download-btn" target="_blank" download>
+                <a href="{{ asset('assets/docs/JOINT CO-OPERATIVE CONFERENCE 2025 CONCEPT NOTE.pdf') }}"
+                    class="download-btn" target="_blank" download>
                     <i class="fas fa-file-pdf download-icon"></i> Download PDF
                 </a>
             </div>

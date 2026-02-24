@@ -81,4 +81,4 @@
         <i class="fas fa-envelope"></i>
         <span class="button-label">Need help? Send us an email</span>
     </a>
-<x-layout>
+</x-layout>
