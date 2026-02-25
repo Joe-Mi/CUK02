@@ -1,6 +1,8 @@
+@props(['hideNavbar' => false])
 
 <!DOCTYPE html>
 <html lang="en" data-theme="lofi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,62 +12,65 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
+
 <body class="page">
 
-    <div class="top-navbar">
-        <div class="left-section">
-            <i class="fas fa-calendar-alt"></i><span class="date"><b> 22-24 July 2025</b></span>
+    @unless($hideNavbar)
+        <div class="top-navbar">
+            <div class="left-section">
+                <i class="fas fa-calendar-alt"></i><span class="date"><b> 22-24 July 2025</b></span>
+            </div>
+
+            <div class="right-section">
+                <i class="fas fa-map-marker-alt"></i><span class="location"> Lake Naivasha Sawela Lodge</span>
+            </div>
         </div>
 
-        <div class="right-section">
-            <i class="fas fa-map-marker-alt"></i><span class="location"> Lake Naivasha Sawela Lodge</span>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <div class="logo">
-            <img src="{{ asset('assets/img/cooperative logo.jfif') }}" alt="School Logo" class="logo">
-        </div>
-        <div class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-links" id="navLinks">
-            <ul>
-                <li><a href="{{ route('home') }}"> <i class="fas fa-home"></i> Home</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"><i class="fas fa-info-circle"></i> About <i
-                            class="fas fa-caret-down"></i></a>
-                    <div class="dropdown-content">
-                        <a href="{{ route('committee') }}">Joint Co-operative Conference 2025 Organizers</a>
-                        <a href="{{ route('thematic') }}">Thematic areas</a>
-                        <a href="{{ route('program') }}">Conference Program</a>
-                    </div>
-                </li>
-                <li><a href="{{ route('sponsors') }}"><i class="fas fa-handshake"></i> Sponsors and Exhibitors </a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-book"></i> Resources <i class="fas fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="{{ route('visa') }}">Visa Guidelines</a>
-                        <a href="{{ route('hotels') }}">Hotels</a>
-                    </div>
-                </li>
-                <li><a href="{{ route('wall') }}"><i class="fas fa-bullseye"></i> Ushirika Wall of Fame (2026) </a></li>
-                <li><a href="{{ route('tickets.index') }}"><i class="fas fa-user-plus"></i> Register </a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-info-circle"></i>Conference 2026<i class="fas fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="{{ route('conference2026') }}" target="_blank">2026 Conference </a>
-                        <a href="{{ route('speech') }}">2026 Conference Presentations </a>
-                        <a href="{{ route('gallery') }}">2026 Photo gallery </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{{ asset('assets/img/cooperative logo.jfif') }}" alt="School Logo" class="logo">
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="{{ route('home') }}"> <i class="fas fa-home"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-info-circle"></i> About <i
+                                class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="{{ route('committee') }}">Joint Co-operative Conference 2025 Organizers</a>
+                            <a href="{{ route('thematic') }}">Thematic areas</a>
+                            <a href="{{ route('program') }}">Conference Program</a>
+                        </div>
+                    </li>
+                    <li><a href="{{ route('sponsors') }}"><i class="fas fa-handshake"></i> Sponsors and Exhibitors </a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-book"></i> Resources <i class="fas fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="{{ route('visa') }}">Visa Guidelines</a>
+                            <a href="{{ route('hotels') }}">Hotels</a>
+                        </div>
+                    </li>
+                    <li><a href="{{ route('wall') }}"><i class="fas fa-bullseye"></i> Ushirika Wall of Fame (2026) </a></li>
+                    <li><a href="{{ route('tickets.index') }}"><i class="fas fa-user-plus"></i> Register </a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-info-circle"></i>Conference 2026<i class="fas fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="{{ route('conference2026') }}" target="_blank">2026 Conference </a>
+                            <a href="{{ route('speech') }}">2026 Conference Presentations </a>
+                            <a href="{{ route('gallery') }}">2026 Photo gallery </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    @endunless
 
     <main>
         {{ $slot }}
@@ -101,7 +106,9 @@
     </footer>
     <div class="footer-bottom">
         <br />
-        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; 2025 The Co-operative University of Kenya. All Rights Reserved.</p>
+        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; 2025 The Co-operative University
+            of Kenya. All Rights Reserved.</p>
     </div>
 </body>
+
 </html>
