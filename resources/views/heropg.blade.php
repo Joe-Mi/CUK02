@@ -773,7 +773,7 @@
                         </div>
                     </div>
 
-                    <a href="href={{ route(name: 'wall') }}">Ushirika Wall of Fame (2024)</a>
+                    <a href="{{ route(name: 'wall') }}">Ushirika Wall of Fame (2024)</a>
 
                     <div class="nav-dropdown">
                         <button class="nav-parent" type="button" aria-expanded="false">Conference 2024

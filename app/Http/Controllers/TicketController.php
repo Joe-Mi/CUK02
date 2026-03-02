@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Event;
 use App\Models\Ticket;
+use App\Models\Customer;
 use App\Models\TicketType;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,6 @@ class TicketController extends Controller
         return view('registration', compact('ticketTypes'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -46,15 +47,53 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedCustomer = $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'number' => 'nullable|integer',
+            'address' => 'required|string'
+        ]);
+
+        $customer = Customer::create($validatedCustomer);
+
+        $validatedTicket = $request->validate([
+            'ticket_type_id' => 'nullable|integer', // should be integer, not array
+        ]);
+
+        $ticket = Ticket::create([
+            'customer_id' => $customer->id,
+            'ticket_type_id' => $validatedTicket['ticket_type_id'] ?? null,
+        ]);
+
+        // Eager load relations so Blade can access them 
+        $ticket->load(['customer', 'ticketType']);
+        // Render a Blade partial that contains #ticket-result-section 
+        return view('partials.ticket_result', [ 'customerTicket' => $ticket ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show(Request $request, Ticket $ticket)
     {
-        //
+        $event = Event::where('status', 'active')
+            ->with('ticketTypes')
+            ->first();
+
+        $ticketTypes = $event?->ticketTypes ?? collect();
+
+        //get the details of a ticket.
+        $customerTicket = Ticket::where('id', $ticket->id)
+            ->with('ticketTypes', 'Customer')->first();
+
+        // Handle PDF download if requested
+        if ($request->has('download')) {
+            $pdf = Pdf::loadView('ticket', compact('ticketTypes', 'customerTicket'));
+            return $pdf->download('ticket_#' . $ticket->id . '.pdf');
+        }
+
+        return view('ticket', compact('ticketTypes', 'customerTicket'));
     }
 
     /**

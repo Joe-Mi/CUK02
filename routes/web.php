@@ -50,6 +50,7 @@ Route::get('/wall', function () {
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
 Route::get('/ticket/create', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/ticket/store', [TicketController::class, 'store'])->name('tickets.store');
+Route::get('/ticket', [TicketController::class, 'show'])->name('tickets.show');
 
 // Assuming welcome is the 2026 conference page as referenced by cuk9/index.php
 Route::get('/conference2026', function () {
