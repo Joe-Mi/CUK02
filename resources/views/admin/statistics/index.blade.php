@@ -24,7 +24,7 @@
                             <td>{{ $date->start_date }}</td>
                             <td>{{ $date->end_date }}</td>
                             <td>
-                                <span class="badge {{ $date->status == 'active' ? 'badge-success' : 'badge-secondary' }}">
+                                <span class="badge {{ $date->status == 'Active' ? 'badge-success' : 'badge-secondary' }}">
                                     {{ ucfirst($date->status) }}
                                 </span>
                             </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class eventController extends Controller
 {
@@ -13,6 +14,7 @@ class eventController extends Controller
     public function index()
     {
         $events = Event::with(['keyDates', 'ticketTypes'])->paginate(10);
+
         return view('admin.events.index', compact('events'));
     }
 
@@ -42,7 +44,7 @@ class eventController extends Controller
             'title' => 'required|string|max:255',
             'venue' => 'required|string|max:255',
             'duration' => 'nullable|integer',
-            'capacity' => 'nullable|integer',
+            'capacity' => 'nullable|integer', 
             'status' => 'required|string',
             'key_dates' => 'nullable|array',
             'key_dates.*.title' => 'required|string',
@@ -50,6 +52,15 @@ class eventController extends Controller
             'key_dates.*.start_date' => 'required|date',
             'key_dates.*.end_date' => 'required|date',
             'key_dates.*.status' => 'required|string',
+            'key_dates' => 'nullable|array',
+            'eventSchedules.*.title' => 'required|string',
+            'eventSchedules.*.speaker' => 'required|string',
+            'eventSchedules.*.location' => 'required|string',
+            'eEventSchedules.*.date' => 'required|date',
+            'eventSchedules.*.start' => 'required|date',
+            'eventSchedules.*.end' => 'required|date',
+            'eventSchedules.*.status' => 'required|string',
+            'eventSchedules' => 'nullable|array',
             'ticket_types' => 'nullable|array',
             'ticket_types.*.type' => 'required|string',
             'ticket_types.*.price' => 'required|numeric',
@@ -60,6 +71,12 @@ class eventController extends Controller
         if (!empty($validated['key_dates'])) {
             foreach ($validated['key_dates'] as $date) {
                 $event->keyDates()->create($date);
+            }
+        }
+
+        if (!empty($validated['eventSchedules'])) {
+            foreach ($validated['eventSchedules'] as $slot) {
+                $event->eventSchedules()->create($slot);
             }
         }
 
@@ -85,7 +102,19 @@ class eventController extends Controller
      */
     public function edit(Event $event)
     {
-        $event->load(['keyDates', 'ticketTypes']);
+        $event->load(['keyDates', 'ticketTypes', 'eventSchedules']);
+        $currdate = (new \DateTime())->format( 'Y-m-d H:i:s' );
+
+        foreach ($event->keyDates as $keyDate) {
+            // Correct logic: Is current date >= start AND current date <= end?
+            if ($currdate >= $keyDate->start_date && $currdate <= $keyDate->end_date) {
+                $keyDate->status = 'Active';
+            } else {
+                $keyDate->status = 'Inactive';
+            }
+            $keyDate->save();
+        }
+        
         return view('admin.events.edit', compact('event'));
     }
 
@@ -109,6 +138,15 @@ class eventController extends Controller
             'key_dates.*.end_date' => 'required|date',
             'key_dates.*.status' => 'required|string',
             'remove_key_dates' => 'nullable|array', // IDs to remove
+            'eventSchedule' => 'nullable|array',
+            'eventSchedule.*.title' => 'required|string',
+            'eventSchedule.*.speaker' => 'required|string',
+            'eventSchedule.*.location' => 'required|string',
+            'eventSchedule.*.date' => 'required|date',
+            'eventSchedule.*.start' => 'required|date',
+            'eventSchedule.*.end' => 'required|date',
+            'eventSchedule.*.status' => 'required|string',
+            'remove_EventSchedule' => 'nullable|array',
             'ticket_types' => 'nullable|array',
             'ticket_types.*.id' => 'nullable|exists:ticket_types,id',
             'ticket_types.*.type' => 'required|string',
@@ -134,6 +172,24 @@ class eventController extends Controller
 
         if (!empty($validated['remove_key_dates'])) {
             $event->keyDates()->whereIn('id', $validated['remove_key_dates'])->delete();
+        }
+
+        // Handle Key Dates
+        if (!empty($validated['eventSchedule'])) {
+            foreach ($validated['eventSchedules'] as $slot) {
+                if (isset($slot['id'])) {
+                    $timeSlot = $event->eventSchedules()->find($slot['id']);
+                    if ($timeSlot) {
+                        $timeSlot->update($slot);
+                    }
+                } else {
+                    $event->eventSchedules()->create($slot);
+                }
+            }
+        }
+
+        if (!empty($validated['remove_EventSchedule'])) {
+            $event->EventSchedules()->whereIn('id', $validated['remove_EventSchedule'])->delete();
         }
 
         // Handle Ticket Types

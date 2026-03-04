@@ -10,8 +10,6 @@
             <p class="header-subtitle">Secure your spot at the conference</p>
         </div>
     </div>
-
-
     <div id="ticket-result-section">
     </div>
 

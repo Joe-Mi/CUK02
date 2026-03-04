@@ -104,6 +104,46 @@
             </div>
             <button type="button" id="add-key-date" class="btn btn-secondary" style="margin-top: 10px;">Add Key Date</button>
             <div id="removed-dates"></div>
+
+            <hr style="margin: 30px 0;">
+            <h3>Schedule Slots</h3>
+            <div id="EventSchedule-container">
+                @foreach($event->eventSchedules as $index => $slot)
+                <div class="EventSchedule-row" id="eventSchedule-row-{{ $slot->id }}" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+                    <input type="hidden" name="EventSchedules[{{ $index }}][id]" value="{{ $slot->id }}">
+                    <div style="flex: 1; min-width: 200px;">
+                        <input type="text" name="eventSchedules[{{ $index }}][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <input type="text" name="eventSchedules[{{ $index }}][speaker]" class="form-control" placeholder="speaker" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <input type="text" name="eventSchedules[{{ $index }}][location]" class="form-control" placeholder="location" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="datetime-local" name="eventSchedules[{{ $index }}][date]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="time" name="eventSchedules[{{ $index }}][start]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="time" name="eventSchedules[{{ $index }}][end]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 120px;">
+                        <select name="eventSchedules[{{ $index }}][status]" class="form-control" required>
+                            <option value="active" {{ $slot->status == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ $slot->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-danger remove-EventSchedule" data-id="{{ $slot->id }}">Remove</button>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <button type="button" id="add-time-slot" class="btn btn-secondary" style="margin-top: 10px;">Add Time slot</button>
+            <div id="removed-EventSchedule"></div>
+
             <div class="actions" style="margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">Update Event</button>
                 <a href="{{ route('admin.events.index') }}" class="btn btn-link">Cancel</a>
@@ -193,6 +233,50 @@
             });
         });
 
+        let slotIndex = {{$event->eventSchedules->count()}};
+
+        document.getElementById('add-time-slot').addEventListener('click', function() {
+            const container = document.getElementById('EventSchedule-container');
+            const row = document.createElement('div');
+            row.className = 'eventSchedule-row';
+            row.style.cssText = 'display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-end; flex-wrap: wrap;';
+            row.innerHTML = `
+                <div style="flex: 1; min-width: 200px;">
+                    <input type="text" name="eventSchedules[${slotIndex}][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <input type="text" name="eventSchedules[${slotIndex}][speaker]" class="form-control" placeholder="speaker" required>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <input type="text" name="eventSchedules[${slotIndex}][location]" class="form-control" placeholder="location" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="datetime-local" name="eventSchedules[${slotIndex}][date]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="time" name="eventSchedules[${slotIndex}][start]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="time" name="eventSchedules[${slotIndex}][end]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 120px;">
+                    <select name="eventSchedules[${slotIndex}][status]" class="form-control" required>
+                        <option value="active" >Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-sm btn-danger remove-EventSchedule" >Remove</button>
+                </div>     
+            `;
+            container.appendChild(row);
+            dateIndex++;
+
+            row.querySelector('.remove-EventSchedule').addEventListener('click', function() {
+                row.remove();
+            });
+        });
+
         document.querySelectorAll('.remove-date').forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
@@ -204,6 +288,25 @@
                 const input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = 'remove_key_dates[]';
+                input.value = id;
+                removedContainer.appendChild(input);
+
+                // Disable inputs in the row so they don't get submitted as updates
+                row.querySelectorAll('input, select').forEach(el => el.disabled = true);
+            });
+        });
+
+        document.querySelectorAll('.remove-EventSchedule').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const row = document.getElementById('EventSchedule-row-' + id);
+                row.style.display = 'none'; // Hide it visually
+
+                // Create a hidden input to signal removal
+                const removedContainer = document.getElementById('removed-EventSchedule');
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'remove_EventSchedule[]';
                 input.value = id;
                 removedContainer.appendChild(input);
 
