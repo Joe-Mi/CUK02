@@ -41,7 +41,7 @@ class StatisticsController extends Controller
     public function show()
     {
         $event = Event::where('status', 'active')
-            ->with('ticketTypes')
+            ->with('ticketTypes', 'keyDates')
             ->first();
 
         // key dates

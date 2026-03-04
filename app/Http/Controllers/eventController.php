@@ -57,8 +57,8 @@ class eventController extends Controller
             'eventSchedules.*.speaker' => 'required|string',
             'eventSchedules.*.location' => 'required|string',
             'eEventSchedules.*.date' => 'required|date',
-            'eventSchedules.*.start' => 'required|date',
-            'eventSchedules.*.end' => 'required|date',
+            'eventSchedules.*.start' => 'required|date_format:H:i',
+            'eventSchedules.*.end' => 'required|date_format:H:i',
             'eventSchedules.*.status' => 'required|string',
             'eventSchedules' => 'nullable|array',
             'ticket_types' => 'nullable|array',
@@ -138,14 +138,15 @@ class eventController extends Controller
             'key_dates.*.end_date' => 'required|date',
             'key_dates.*.status' => 'required|string',
             'remove_key_dates' => 'nullable|array', // IDs to remove
-            'eventSchedule' => 'nullable|array',
-            'eventSchedule.*.title' => 'required|string',
-            'eventSchedule.*.speaker' => 'required|string',
-            'eventSchedule.*.location' => 'required|string',
-            'eventSchedule.*.date' => 'required|date',
-            'eventSchedule.*.start' => 'required|date',
-            'eventSchedule.*.end' => 'required|date',
-            'eventSchedule.*.status' => 'required|string',
+            'eventSchedules' => 'nullable|array',
+            'eventSchedules.*.id' => 'nullable|exists:event_schedules,id',
+            'eventSchedules.*.title' => 'required|string',
+            'eventSchedules.*.speaker' => 'required|string',
+            'eventSchedules.*.location' => 'required|string',
+            'eventSchedules.*.date' => 'required|date',
+            'eventSchedules.*.start' => 'required|date_format:H:i',
+            'eventSchedules.*.end' => 'required|date_format:H:i',
+            'eventSchedules.*.status' => 'required|string',
             'remove_EventSchedule' => 'nullable|array',
             'ticket_types' => 'nullable|array',
             'ticket_types.*.id' => 'nullable|exists:ticket_types,id',
@@ -175,7 +176,7 @@ class eventController extends Controller
         }
 
         // Handle Key Dates
-        if (!empty($validated['eventSchedule'])) {
+        if (!empty($validated['eventSchedules'])) {
             foreach ($validated['eventSchedules'] as $slot) {
                 if (isset($slot['id'])) {
                     $timeSlot = $event->eventSchedules()->find($slot['id']);
@@ -189,7 +190,7 @@ class eventController extends Controller
         }
 
         if (!empty($validated['remove_EventSchedule'])) {
-            $event->EventSchedules()->whereIn('id', $validated['remove_EventSchedule'])->delete();
+            $event->eventSchedules()->whereIn('id', $validated['remove_EventSchedule'])->delete();
         }
 
         // Handle Ticket Types
