@@ -18,11 +18,11 @@
     @unless($hideNavbar)
         <div class="top-navbar">
             <div class="left-section">
-                <i class="fas fa-calendar-alt"></i><span class="date"><b> 22-24 July 2025</b></span>
+                <i class=""></i><span class="date"><b> </b></span>
             </div>
 
             <div class="right-section">
-                <i class="fas fa-map-marker-alt"></i><span class="location"> Lake Naivasha Sawela Lodge</span>
+                <i class=""></i><span class="location"> Empowering Communities</span>
             </div>
         </div>
 
@@ -106,7 +106,7 @@
     </footer>
     <div class="footer-bottom">
         <br />
-        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; 2025 The Co-operative University
+        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; <script>document.write(new Date().getFullYear());</script> The Co-operative University
             of Kenya. All Rights Reserved.</p>
     </div>
 </body>

@@ -1,4 +1,7 @@
 <x-layout :hide-navbar="true">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JETELD42YM"></script>
     <script>
@@ -109,7 +112,7 @@
                 <img src="{{ asset('assets/img/Prof_Alfred_Said_Sife.jpg') }}" alt="VC Moshi cooperative Uni">
             </div>
         </section>
-        <div class="main-wrapper">
+        <!-- <div class="main-wrapper">
             <div class="download-container">
                 <h2 class="download-heading">Download the Joint Co-operative Conference 2025 concept note </h2>
                 <a href="{{ asset('assets/docs/JOINT CO-OPERATIVE CONFERENCE 2025 CONCEPT NOTE.pdf') }}"
@@ -117,7 +120,7 @@
                     <i class="fas fa-file-pdf download-icon"></i> Download PDF
                 </a>
             </div>
-        </div>
+        </div> -->
 
         <body class="page">
             <div class="section container">
@@ -188,4 +191,7 @@
             </a>
         </body>
     </body>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </x-layout>
