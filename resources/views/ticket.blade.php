@@ -10,6 +10,8 @@
             <p class="header-subtitle">Secure your spot at the conference</p>
         </div>
     </div>
+    <div id="ticket-result-section">
+    </div>
 
     <div class="form-container">
         <!-- Progress Bar -->
@@ -94,25 +96,10 @@
                     <label class="ticket-option">
                         <input type="radio" name="ticket_type_id" value="1" required>
                         <div class="ticket-card">
-                            <h3>Participant Delegate</h3>
-                            <div class="ticket-price">KES 69,600</div>
+                            <h3>Un-available</h3>
+                            <div class="ticket-price">KES 0</div>
                         </div>
-                    </label>
-                    <label class="ticket-option">
-                        <input type="radio" name="ticket_type_id" value="2">
-                        <div class="ticket-card">
-                            <h3>Paper Presenter</h3>
-                            <div class="ticket-price">KES 15,000</div>
-                        </div>
-                    </label>
-                    <label class="ticket-option">
-                        <input type="radio" name="ticket_type_id" value="3">
-                        <div class="ticket-card">
-                            <h3>Virtual Presenter</h3>
-                            <div class="ticket-price">KES 5,000</div>
-                        </div>
-                    </label>
-                    @endif
+                        @endif
                 </div>
                 <div class="btn-group space-between">
                     <button type="button" class="btn btn-prev" onclick="prevPhase(3)"><i class="fas fa-arrow-left"></i> Previous</button>
@@ -162,7 +149,7 @@
         </form>
     </div>
 
-    
+
     <script>
         function validatePhase(phaseNum) {
             const phase = document.getElementById('phase' + phaseNum);
@@ -223,6 +210,53 @@
             document.getElementById('step' + prev + '-indicator').classList.remove('completed');
             document.getElementById('step' + prev + '-indicator').classList.add('active');
         }
+
+        // Handle Form Submit via AJAX to only update part of DOM
+        document.getElementById('multi-stage-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = this;
+            const submitBtn = form.querySelector('.btn-submit');
+            const originalBtnHtml = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'text/html, application/xhtml+xml, application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const htmlText = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const newTicketSection = doc.getElementById('ticket-result-section');
+
+                    if (newTicketSection && newTicketSection.innerHTML.trim() !== '') {
+                        document.querySelector('.form-container').style.display = 'none';
+                        const targetSection = document.getElementById('ticket-result-section');
+                        targetSection.innerHTML = newTicketSection.innerHTML;
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    alert('Submission failed. Server responded with an error.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('A network error occurred.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+            }
+        });
 
         // Handle file upload display
         const fileInput = document.getElementById('payment_proof');

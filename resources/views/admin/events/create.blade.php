@@ -89,6 +89,38 @@
             </div>
             <button type="button" id="add-key-date" class="btn btn-secondary" style="margin-top: 10px;">Add Key Date</button>
 
+            <hr style="margin: 30px 0;">
+            <h3>Schedule Slots</h3>
+            <div id="EventSchedule-container">
+                <div class="EventSchedule-row" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <input type="text" name="EventSchedule[0][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <input type="text" name="EventSchedule[0][speaker]" class="form-control" placeholder="speaker" required>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <input type="text" name="EventSchedule[0][location]" class="form-control" placeholder="location" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="datetime-local" name="EventSchedule[0][date]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="time" name="EventSchedule[0][start]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 180px;">
+                        <input type="time" name="EventSchedule[0][end]" class="form-control" required>
+                    </div>
+                    <div style="flex: 1; min-width: 120px;">
+                        <select name="EventSchedule[0][status]" class="form-control" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="add-time-slot" class="btn btn-secondary" style="margin-top: 10px;">Add Time slot</button>
+
             <div class="actions" style="margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">Create Event</button>
             </div>
@@ -142,6 +174,41 @@
                 </div>
                 <div style="flex: 1; min-width: 120px;">
                     <select name="key_dates[${index}][status]" class="form-control" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+
+        document.getElementById('add-time-slot').addEventListener('click', function() {
+            const container = document.getElementById('EventSchedule-container');
+            const index = container.children.length;
+            const row = document.createElement('div');
+            row.className = 'EventSchedule-row';
+            row.style.cssText = 'display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;';
+            row.innerHTML = `
+                <div style="flex: 1; min-width: 200px;">
+                    <input type="text" name="eventSchedule[0][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <input type="text" name="eventSchedule[0][speaker]" class="form-control" placeholder="speaker" required>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <input type="text" name="eventSchedule[0][location]" class="form-control" placeholder="location" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="datetime-local" name="eventSchedule[0][date]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="time" name="eventSchedule[0][start]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 180px;">
+                    <input type="time" name="eventSchedule[0][end]" class="form-control" required>
+                </div>
+                <div style="flex: 1; min-width: 120px;">
+                    <select name="eventSchedule[0][status]" class="form-control" required>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                     </select>

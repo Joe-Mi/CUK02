@@ -40,12 +40,15 @@ class StatisticsController extends Controller
      */
     public function show()
     {
-        $event = Event::latest()->first();
+        $event = Event::where('status', 'active')
+            ->with('ticketTypes')
+            ->first();
+
         // key dates
         $keyDates = $event->keyDates()->orderBy('start_date')->get();
 
         // ticket sales grouped by date
-        $sales = Ticket::where('event_id', $event->id)
+        $sales = Ticket::whereIn('ticket_type_id', $event->ticketTypes->pluck('id'))
             ->selectRaw('DATE(created_at) as date, COUNT(*) as total')
             ->groupBy('date')
             ->orderBy('date')
@@ -55,7 +58,7 @@ class StatisticsController extends Controller
         $salesCounts = $sales->pluck('total');
 
         // total tickets sold
-        $ticketsSold = Ticket::where('event_id', $event->id)->count();
+        $ticketsSold = Ticket::whereIn('ticket_type_id', $event->ticketTypes->pluck('id'))->count();
 
         // remaining capacity
         $remainingCapacity = max(0, $event->capacity - $ticketsSold);

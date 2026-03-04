@@ -14,7 +14,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $event = Event::all()->first();
+        $event = Event::where('status', 'active')->first();
         $scheduale = EventSchedule::where('event_id', $event->id)->get();
         return view('admin.register.index', compact('event', 'scheduale'));
     }
