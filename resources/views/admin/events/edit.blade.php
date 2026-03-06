@@ -110,24 +110,24 @@
             <div id="EventSchedule-container">
                 @foreach($event->eventSchedules as $index => $slot)
                 <div class="EventSchedule-row" id="eventSchedule-row-{{ $slot->id }}" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
-                    <input type="hidden" name="EventSchedules[{{ $index }}][id]" value="{{ $slot->id }}">
+                    <input type="hidden" name="eventSchedules[{{ $index }}][id]" value="{{ $slot->id }}">
                     <div style="flex: 1; min-width: 200px;">
-                        <input type="text" name="eventSchedules[{{ $index }}][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                        <input type="text" name="eventSchedules[{{ $index }}][title]" class="form-control" value="{{ $slot->title }}" placeholder="Title (e.g. Early Bird)" required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
-                        <input type="text" name="eventSchedules[{{ $index }}][speaker]" class="form-control" placeholder="speaker" required>
+                        <input type="text" name="eventSchedules[{{ $index }}][speaker]" class="form-control" value="{{ $slot->speaker }}" placeholder="speaker" required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
-                        <input type="text" name="eventSchedules[{{ $index }}][location]" class="form-control" placeholder="location" required>
+                        <input type="text" name="eventSchedules[{{ $index }}][location]" class="form-control" value="{{ $slot->location }}" placeholder="location" required>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
-                        <input type="datetime-local" name="eventSchedules[{{ $index }}][date]" class="form-control" required>
+                        <input type="datetime-local" name="eventSchedules[{{ $index }}][date]" class="form-control" value="{{ \Carbon\Carbon::parse($slot->date)->format('Y-m-d\TH:i') }}" required>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
-                        <input type="time" name="eventSchedules[{{ $index }}][start]" class="form-control" required>
+                        <input type="time" name="eventSchedules[{{ $index }}][start]" class="form-control" value="{{ \Carbon\Carbon::parse($slot->start )->format('H:i') }}" required>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
-                        <input type="time" name="eventSchedules[{{ $index }}][end]" class="form-control" required>
+                        <input type="time" name="eventSchedules[{{ $index }}][end]" class="form-control" value="{{ \Carbon\Carbon::parse($slot->end)->format('H:i') }}" required>
                     </div>
                     <div style="flex: 1; min-width: 120px;">
                         <select name="eventSchedules[{{ $index }}][status]" class="form-control" required>
@@ -270,7 +270,7 @@
                 </div>     
             `;
             container.appendChild(row);
-            dateIndex++;
+            slotIndex++;
 
             row.querySelector('.remove-EventSchedule').addEventListener('click', function() {
                 row.remove();
@@ -299,7 +299,7 @@
         document.querySelectorAll('.remove-EventSchedule').forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
-                const row = document.getElementById('EventSchedule-row-' + id);
+                const row = document.getElementById('eventSchedule-row-' + id);
                 row.style.display = 'none'; // Hide it visually
 
                 // Create a hidden input to signal removal
