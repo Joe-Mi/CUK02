@@ -9,6 +9,6 @@ public function run()
         'username' => 'Admin01',
         'type' => 'Admin',
         'email' => 'test@gmail.com',
-        'password' => Hash::make('test123'),
+        'password' => 'test123',
     ]);
 }

@@ -12,7 +12,7 @@
 
   <!-- Main body -->
   <div class="container">
-    @foreach($ticketTypes as $ticketType)
+    @forelse($ticketTypes as $ticketType)
     <div class="card">
       <h2><i class="fas fa-user-tie"></i>{{$ticketType->type}}</h2>
       <div class="price">KES {{$ticketType->price}} (VAT inclusive)</div>
@@ -21,19 +21,15 @@
         <button>Register Now</button>
       </a>
     </div>
-    @endforeach
-
-    <!-- Participant Card -->
+    @empty
+    <!-- ticket unavailable Card -->
     <div class="card">
-      <h2><i class="fas fa-user-tie"></i> Participant</h2>
-      <p>Delegates will have access to enriching keynotes, engaging panel discussions, and valuable networking sessions.
+      <h2><i class=""></i> Thanks for Checking out !!! </h2>
+      <p>Active Conferences are currently unavailable. please contact us for more information.
       </p>
-      <div class="price">KES 69,600 (USD 553) (VAT inclusive)</div>
-      <p><strong>Price per delegate</strong></p>
-      <a href="{{ url('/ticket/create') }}">
-        <button>Register Now</button>
-      </a>
+      
     </div>
+    @endforelse
   </div>
 
   <!-- Payment details -->

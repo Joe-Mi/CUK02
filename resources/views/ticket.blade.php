@@ -30,6 +30,10 @@
             </div>
             <div class="step" id="step4-indicator">
                 <div class="step-num">4</div>
+                <div class="step-label">Review</div>
+            </div>
+            <div class="step" id="step5-indicator">
+                <div class="step-num">5</div>
                 <div class="step-label">Payment</div>
             </div>
         </div>
@@ -65,12 +69,29 @@
                 </div>
             </div>
 
-            <!-- Phase 2: Address -->
+            <!-- Phase 2: location Address -->
             <div class="form-phase" id="phase2">
                 <h2><i class="fas fa-map-marker-alt"></i> Address Information</h2>
                 <div class="form-group">
+                    <label for="country">Country <span class="required">*</span></label>
+                    <select id="country" name="country" required>
+                        <option value="">-- Select a Country --</option>
+                        
+                        <option value="Kenya">Kenya</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="Rwanda">Rwanda</option>
+                        <option value="Burundi">Burundi</option>
+                        <option value="Democratic Republic of Congo">Democratic Republic of Congo</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                        <option value="South Sudan">South Sudan</option>
+                        <option value="Somalia">Somalia</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="address">Full Physical Address</label>
-                    <textarea id="address" name="address" rows="3" placeholder="P.O. Box 12345-00100, Nairobi, Kenya"></textarea>
+                    <textarea id="address" name="address" rows="3" placeholder="Nairobi, Kenya"></textarea>
                 </div>
                 <div class="btn-group space-between">
                     <button type="button" class="btn btn-prev" onclick="prevPhase(2)"><i class="fas fa-arrow-left"></i> Previous</button>
@@ -107,8 +128,50 @@
                 </div>
             </div>
 
-            <!-- Phase 4: Payment Details -->
+            <!-- Phase 4: Review & Verify Information -->
             <div class="form-phase" id="phase4">
+                <h2><i class="fas fa-check-double"></i> Verify Your Information </h2>
+                <div class="review-section">
+                    <div class="review-group">
+                        <h2>Personal Details</h2>
+                        <div class="review-item">
+                            <p><strong>First Name:</strong> <span id="review-name"></span></p>
+                            <p><strong>Surname:</strong> <span id="review-surname"></span></p>
+                        </div>
+                        <div class="review-item">
+                            <p><strong>Email:</strong> <span id="review-email"></span></p>
+                            <p><strong>Phone Number:</strong> <span id="review-number"></span></p>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="review-group">
+                        <h3>Address Information</h3>
+                        <div class="review-item">
+                            <p><strong>Country:</strong> <span id="review-country"></span></p>
+                            <p><strong>Physical Address:</strong> <span id="review-address"></span></p>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="review-group">
+                        <h3>Ticket Selection</h3>
+                        <div class="review-item">
+                            <p><strong>Ticket Type:</strong> <span id="review-ticket-type"></span></p>
+                            <p><strong>Price:</strong> <span id="review-ticket-price"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group space-between">
+                    <button type="button" class="btn btn-prev" onclick="prevPhase(4)"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextPhase(4)">Proceed to Payment <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Phase 5: Payment Details -->
+            <div class="form-phase" id="phase5">
                 <h2><i class="fas fa-credit-card"></i> Payment Details</h2>
 
                 <div class="payment-instructions">
@@ -142,7 +205,7 @@
                 </div>
 
                 <div class="btn-group space-between">
-                    <button type="button" class="btn btn-prev" onclick="prevPhase(4)"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" class="btn btn-prev" onclick="prevPhase(5)"><i class="fas fa-arrow-left"></i> Previous</button>
                     <button type="submit" class="btn btn-submit"><i class="fas fa-check-circle"></i> Complete Registration</button>
                 </div>
             </div>
@@ -191,6 +254,23 @@
 
         function nextPhase(currentPhase) {
             if (!validatePhase(currentPhase)) return;
+
+            // Populate review section when moving to phase 4
+            if (currentPhase === 3) {
+                document.getElementById('review-name').textContent = document.getElementById('name').value;
+                document.getElementById('review-surname').textContent = document.getElementById('surname').value;
+                document.getElementById('review-email').textContent = document.getElementById('email').value;
+                document.getElementById('review-number').textContent = document.getElementById('number').value;
+                document.getElementById('review-country').textContent = document.getElementById('country').value;
+                document.getElementById('review-address').textContent = document.getElementById('address').value || 'Not provided';
+                
+                const selectedTicket = document.querySelector('input[name="ticket_type_id"]:checked');
+                const ticketText = selectedTicket ? selectedTicket.closest('.ticket-option').querySelector('h3').textContent : '';
+                const ticketPrice = selectedTicket ? selectedTicket.closest('.ticket-option').querySelector('.ticket-price').textContent : '';
+                
+                document.getElementById('review-ticket-type').textContent = ticketText;
+                document.getElementById('review-ticket-price').textContent = ticketPrice;
+            }
 
             document.getElementById('phase' + currentPhase).classList.remove('active');
             document.getElementById('step' + currentPhase + '-indicator').classList.remove('active');
