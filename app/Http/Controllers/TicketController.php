@@ -51,7 +51,7 @@ class TicketController extends Controller
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|string|max:255',
-            'number' => 'nullable|integer',
+            'number' => 'required|string',
             'address' => 'required|string'
         ]);
 
@@ -68,8 +68,19 @@ class TicketController extends Controller
 
         // Eager load relations so Blade can access them 
         $ticket->load(['customer', 'ticketType']);
+        
+        $qrUrl = url('/ticket/' . $ticket->id);
+        $qrCodeApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=1&format=svg&data=' . urlencode($qrUrl);
+        $qrCodeImage = '';
+        try {
+            $svgContent = file_get_contents($qrCodeApiUrl);
+            $qrCodeImage = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+        } catch (\Exception $e) {
+            // Silently fail if API is unreachable
+        }
+
         // Render a Blade partial that contains #ticket-result-section 
-        return view('partials.ticket_result', [ 'customerTicket' => $ticket ]);
+        return view('partials.ticket_result', [ 'customerTicket' => $ticket, 'qrCodeImage' => $qrCodeImage ]);
     }
 
     /**
@@ -85,15 +96,25 @@ class TicketController extends Controller
 
         //get the details of a ticket.
         $customerTicket = Ticket::where('id', $ticket->id)
-            ->with('ticketTypes', 'Customer')->first();
+            ->with('ticketType', 'customer')->first();
+
+        $qrUrl = url('/ticket/' . $ticket->id);
+        $qrCodeApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=1&format=svg&data=' . urlencode($qrUrl);
+        $qrCodeImage = '';
+        try {
+            $svgContent = file_get_contents($qrCodeApiUrl);
+            $qrCodeImage = 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+        } catch (\Exception $e) {
+            // Silently fail if API is unreachable
+        }
 
         // Handle PDF download if requested
         if ($request->has('download')) {
-            $pdf = Pdf::loadView('ticket', compact('ticketTypes', 'customerTicket'));
+            $pdf = Pdf::loadView('ticket_pdf', compact('ticketTypes', 'customerTicket', 'qrCodeImage'));
             return $pdf->download('ticket_#' . $ticket->id . '.pdf');
         }
 
-        return view('ticket', compact('ticketTypes', 'customerTicket'));
+        return view('ticket_pdf', compact('ticketTypes', 'customerTicket', 'qrCodeImage'));
     }
 
     /**

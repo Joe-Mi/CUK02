@@ -90,8 +90,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="address">Full Physical Address</label>
-                    <textarea id="address" name="address" rows="3" placeholder="Nairobi, Kenya"></textarea>
+                    <label for="address">Full Physical Address <span class="required">*</span></label>
+                    <textarea id="address" name="address" rows="3" required placeholder="Nairobi, Kenya"></textarea>
                 </div>
                 <div class="btn-group space-between">
                     <button type="button" class="btn btn-prev" onclick="prevPhase(2)"><i class="fas fa-arrow-left"></i> Previous</button>
@@ -326,8 +326,15 @@
                             behavior: 'smooth'
                         });
                     }
+                } else if (response.status === 422) {
+                    const errorData = await response.json();
+                    let errorMsg = 'Validation failed:\n';
+                    for (const field in errorData.errors) {
+                        errorMsg += `- ${errorData.errors[field].join(', ')}\n`;
+                    }
+                    alert(errorMsg);
                 } else {
-                    alert('Submission failed. Server responded with an error.');
+                    alert('Submission failed. Server responded with an error (Status: ' + response.status + ').');
                 }
             } catch (err) {
                 console.error(err);
