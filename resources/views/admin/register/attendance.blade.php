@@ -54,6 +54,36 @@
                 <button type="submit" class="btn btn-primary">Take Attendance</button>
             </form>
         </div>
+
+        <div class="meeting_badge" style="margin-top: 20px;">
+            <h3>Recorded Attendees</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" style="margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Name</th>
+                            <th>Ticket Type</th>
+                            <th>Recorded At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($attendees as $attendee)
+                        <tr>
+                            <td>{{ $attendee->ticket_id }}</td>
+                            <td>{{ optional(optional($attendee->ticket)->customer)->name }} {{ optional(optional($attendee->ticket)->customer)->surname }}</td>
+                            <td>{{ optional(optional($attendee->ticket)->ticketType)->type }}</td>
+                            <td>{{ $attendee->created_at->format('Y-m-d H:i') }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" class="text-center">No attendees recorded yet.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <script>
     </script>

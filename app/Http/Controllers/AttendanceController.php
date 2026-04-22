@@ -16,7 +16,14 @@ class AttendanceController extends Controller
     {
         $event = Event::where('status', 'active')->first();
         $scheduale = EventSchedule::where('event_id', $event->id)->get();
-        return view('admin.register.index', compact('event', 'scheduale'));
+        
+        $registeredAttendees = \App\Models\Ticket::with(['customer', 'ticketType'])
+            ->whereHas('ticketType', function ($query) use ($event) {
+                $query->where('event_id', $event->id);
+            })
+            ->get();
+
+        return view('admin.register.index', compact('event', 'scheduale', 'registeredAttendees'));
     }
 
     /**
@@ -34,12 +41,15 @@ class AttendanceController extends Controller
     {
         $request->validate([
             'ticket_id' => 'required',
-            'name' => 'required',
-            'qr_image' => 'required',
+            'schedule_id' => 'required',
         ]);
         //
-        $scheduleAttendance = ScheduleAttendance::create($request->all());
-        return redirect()->route('admin.attendance.show', $scheduleAttendance->id)->with('success', 'Attendance recorded successfully.');
+        $scheduleAttendance = ScheduleAttendance::create([
+            'ticket_id' => $request->ticket_id,
+            'schedule_id' => $request->schedule_id,
+            'attended' => true
+        ]);
+        return redirect()->route('admin.attendance.show', $request->schedule_id)->with('success', 'Attendance recorded successfully.');
     }
 
     /**
@@ -50,7 +60,21 @@ class AttendanceController extends Controller
         $block = $attendance;
         $status = null;
         $ticket = null;
-        return view('admin.register.attendance', compact('block', 'status', 'ticket'));
+        
+        $attendees = ScheduleAttendance::with(['ticket.customer', 'ticket.ticketType'])
+            ->where('schedule_id', $block->id)
+            ->get();
+
+        return view('admin.register.attendance', compact('block', 'status', 'ticket', 'attendees'));
+    }
+
+    /**
+     * Display the event tag (badge) for a specific ticket.
+     */
+    public function tag(\App\Models\Ticket $ticket)
+    {
+        $ticket->load(['customer', 'ticketType', 'ticketType.event']);
+        return view('admin.register.tag', compact('ticket'));
     }
 
     /**

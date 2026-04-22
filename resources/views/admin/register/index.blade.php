@@ -47,6 +47,43 @@
                 </table>
             </div>
         </div>
+        <div class="scheduale_container mt-5">
+            <h2>Registered Attendees</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Ticket Type</th>
+                            <th>Date Registered</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($registeredAttendees as $attendee)
+                        <tr>
+                            <td>{{ $attendee->id }}</td>
+                            <td>{{ optional($attendee->customer)->name }} {{ optional($attendee->customer)->surname }}</td>
+                            <td>{{ optional($attendee->customer)->email }}</td>
+                            <td>{{ optional($attendee->ticketType)->type }}</td>
+                            <td>{{ $attendee->created_at->format('Y-m-d H:i') }}</td>
+                            <td>
+                                <a href="{{ route('admin.attendance.tag', $attendee->id) }}" class="btn btn-sm btn-info" target="_blank">
+                                    <i class="fas fa-id-badge"></i> View Tag
+                                </a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No attendees registered yet.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <script>
     </script>

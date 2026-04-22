@@ -13,6 +13,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('events', eventController::class);
+    Route::get('attendance/tag/{ticket}', [AttendanceController::class, 'tag'])->name('attendance.tag');
     Route::resource('attendance', AttendanceController::class);
     Route::get('/statistics', [StatisticsController::class, 'show'])->name('statistics');
 });
