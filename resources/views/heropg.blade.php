@@ -1078,7 +1078,8 @@
             <div class="mobile-nav-header">
                 <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close Menu">
                     <svg viewBox="0 0 24 24">
-                        <path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4Z" />
+                        <path
+                            d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4Z" />
                     </svg>
                 </button>
             </div>
@@ -1125,11 +1126,12 @@
                     <path
                         d="M13 22v-8h3l1-4h-4V7.5c0-1 .3-1.5 1.7-1.5H18V2.2C17.3 2.1 15.9 2 14.2 2 10.7 2 9 4.1 9 7.1V10H6v4h3v8h4Z" />
                 </svg></a>
-            <a href="https://ke.linkedin.com/company/the-co-operative-university-of-kenya" title="LinkedIn"><svg viewBox="0 0 24 24">
+            <a href="https://ke.linkedin.com/company/the-co-operative-university-of-kenya" title="LinkedIn"><svg
+                    viewBox="0 0 24 24">
                     <path
                         d="M6.9 6.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM4.8 21.6V8.4H9v13.2H4.8ZM20.6 21.6h-4.2v-6.4c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3v6.5H7.7V8.4h4v1.8h.1c.6-1 2-2.1 4-2.1 4.3 0 5.1 2.8 5.1 6.5v7Z" />
                 </svg></a>
-            <a href="https://x.com/CoopVarsityKE"title="X / Twitter"><svg viewBox="0 0 24 24">
+            <a href="https://x.com/CoopVarsityKE" title="X / Twitter"><svg viewBox="0 0 24 24">
                     <path
                         d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.2-6.7L5.4 22H2l7.3-8.4L1 2h6.8l4.7 6.1L18.9 2Zm-1.2 18h1.7L7.7 3.9H5.9L17.7 20Z" />
                 </svg></a>
@@ -1144,12 +1146,14 @@
                 <div class="mission">
                     <div class="mission-label">The Cooperative University Of Kenya</div>
                     <h1 class="hero-title">Welcome to the<br /><span class="highlight">Joint</span>, <span
-                            class="highlight">Co-operative</span> &amp; <span
-                            class="highlight">Conference</span><br />2025
+                            class="highlight">Co-operative</span> &amp; <span class="highlight">Conference</span><br />
+                        <script>document.write(new Date().getFullYear());</script>
                     </h1>
-                    <p class="hero-subtitle">The 4th Co-operative Movement Stakeholders' Annual Conference &amp; The 8th
+                    <p class="hero-subtitle">The 5th Co-operative Movement Stakeholders' Annual Conference &amp; The 8th
                         CUK
-                        Annual Scientific Conference 2025</p>
+                        Annual Scientific Conference
+                        <script>document.write(new Date().getFullYear());</script>
+                    </p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" href="{{ route('tickets.index') }}">Register Now<svg
                                 viewBox="0 0 24 24">
@@ -1187,7 +1191,7 @@
     let current = 0;
     let autoTimer = null;
     const interval = 4000;
-    
+
     // Create dots
     slides.forEach((_, i) => {
         const dot = document.createElement('button');
@@ -1196,9 +1200,9 @@
         dot.addEventListener('click', () => goTo(i, true));
         dotsWrap.appendChild(dot);
     });
-    
+
     const dots = Array.from(document.querySelectorAll('.dot'));
-    
+
     function setActive(index) {
         slides.forEach(s => s.classList.remove('active'));
         dots.forEach(d => d.classList.remove('active'));
@@ -1206,41 +1210,41 @@
         dots[index].classList.add('active');
         current = index;
     }
-    
+
     function next(manual = false) {
         const index = (current + 1) % slides.length;
         setActive(index);
         if (manual) restartAuto();
     }
-    
+
     function prev(manual = false) {
         const index = (current - 1 + slides.length) % slides.length;
         setActive(index);
         if (manual) restartAuto();
     }
-    
+
     function goTo(index, manual = false) {
         setActive(index);
         if (manual) restartAuto();
     }
-    
+
     function startAuto() {
         autoTimer = setInterval(() => next(false), interval);
     }
-    
+
     function stopAuto() {
         if (autoTimer) clearInterval(autoTimer);
         autoTimer = null;
     }
-    
+
     function restartAuto() {
         stopAuto();
         startAuto();
     }
-    
+
     nextBtn.addEventListener('click', () => next(true));
     prevBtn.addEventListener('click', () => prev(true));
-    
+
     const hero = document.querySelector('.hero');
     hero.addEventListener('mouseenter', stopAuto);
     hero.addEventListener('mouseleave', startAuto);
@@ -1250,7 +1254,7 @@
     const menuBtn = document.getElementById('menuBtn');
     const mobileNav = document.getElementById('mobileNav');
     const mobileNavClose = document.getElementById('mobileNavClose');
-    
+
     if (menuBtn && mobileNav) {
         // Create a backdrop overlay for closing the menu
         const backdrop = document.createElement('div');
@@ -1265,7 +1269,7 @@
         backdrop.style.pointerEvents = 'none';
         backdrop.style.transition = 'opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)';
         document.body.appendChild(backdrop);
-        
+
         // Toggle mobile menu
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1294,20 +1298,20 @@
 
         // Get all mobile dropdown buttons and their submenus
         const mobileDropdownBtns = mobileNav.querySelectorAll('.mobile-dropdown-btn');
-        
+
         // Setup dropdown buttons
         mobileDropdownBtns.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // Close other dropdowns
                 mobileDropdownBtns.forEach((otherBtn, otherIndex) => {
                     if (otherIndex !== index) {
                         otherBtn.classList.remove('open');
                     }
                 });
-                
+
                 // Toggle current dropdown
                 btn.classList.toggle('open');
             });
@@ -1337,8 +1341,8 @@
 
         // Close menu when clicking outside (on the page)
         document.addEventListener('click', (e) => {
-            if (mobileNav.classList.contains('active') && 
-                !mobileNav.contains(e.target) && 
+            if (mobileNav.classList.contains('active') &&
+                !mobileNav.contains(e.target) &&
                 !menuBtn.contains(e.target)) {
                 mobileNav.classList.remove('active');
                 backdrop.style.opacity = '0';
@@ -1359,11 +1363,11 @@
     dropdowns.forEach((drop, index) => {
         const btn = drop.querySelector('.nav-parent');
         const menu = drop.querySelector('.nav-submenu');
-        
+
         // Toggle dropdown on button click
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            
+
             // Close other dropdowns
             dropdowns.forEach((d, i) => {
                 if (i !== index) {
@@ -1372,17 +1376,17 @@
                     if (b) b.setAttribute('aria-expanded', 'false');
                 }
             });
-            
+
             // Toggle current dropdown
             const isOpen = drop.classList.toggle('open');
             btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
-        
+
         // Prevent closing when clicking inside menu
         menu.addEventListener('click', (e) => {
             e.stopPropagation();
         });
-        
+
         // Close dropdown when clicking a menu link
         menu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -1392,7 +1396,7 @@
             });
         });
     });
-    
+
     // Close all dropdowns when clicking outside (or on any non-dropdown link)
     document.addEventListener('click', (e) => {
         // only keep open if click is inside an active nav-dropdown itself
@@ -1404,7 +1408,7 @@
             });
         }
     });
-    
+
     // Close dropdowns on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {

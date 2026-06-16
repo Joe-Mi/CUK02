@@ -17,6 +17,7 @@ class AttendanceController extends Controller
         $event = Event::where('status', 'active')->first();
         $scheduale = EventSchedule::where('event_id', $event->id)->get();
         
+
         $registeredAttendees = \App\Models\Ticket::with(['customer', 'ticketType'])
             ->whereHas('ticketType', function ($query) use ($event) {
                 $query->where('event_id', $event->id);

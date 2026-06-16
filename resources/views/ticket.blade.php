@@ -1,7 +1,9 @@
 <x-layout>
     @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/ticket.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('assets/css/ticket.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
     @endpush
 
     <div class="ticket-header">
@@ -22,18 +24,14 @@
             </div>
             <div class="step" id="step2-indicator">
                 <div class="step-num">2</div>
-                <div class="step-label">Address</div>
+                <div class="step-label">Ticket Type</div>
             </div>
             <div class="step" id="step3-indicator">
                 <div class="step-num">3</div>
-                <div class="step-label">Ticket Type</div>
+                <div class="step-label">Review</div>
             </div>
             <div class="step" id="step4-indicator">
                 <div class="step-num">4</div>
-                <div class="step-label">Review</div>
-            </div>
-            <div class="step" id="step5-indicator">
-                <div class="step-num">5</div>
                 <div class="step-label">Payment</div>
             </div>
         </div>
@@ -41,9 +39,9 @@
         <form id="multi-stage-form" action="{{ url('/ticket/store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Phase 1: Personal Details -->
+            <!-- Phase 1: Personal Details & Address -->
             <div class="form-phase active" id="phase1">
-                <h2><i class="fas fa-user"></i> Personal Details</h2>
+                <h2><i class="fas "></i> Personal Details</h2>
                 <div class="form-group row">
                     <div class="col">
                         <label for="name">First Name <span class="required">*</span></label>
@@ -60,23 +58,40 @@
                         <input type="email" id="email" name="email" required placeholder="jane.doe@example.com">
                     </div>
                     <div class="col">
-                        <label for="number">Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="number" name="number" required placeholder="+254 700 000000">
+                        <label for="local_number">Phone Number <span class="required">*</span></label>
+                        <div class="phone-input-group">
+                            <select id="country_code" required>
+                                <option value="+254">+254 (Kenya)</option>
+                                <option value="+256">+256 (Uganda)</option>
+                                <option value="+255">+255 (Tanzania)</option>
+                                <option value="+250">+250 (Rwanda)</option>
+                                <option value="+257">+257 (Burundi)</option>
+                                <option value="+243">+243 (DRC)</option>
+                                <option value="+251">+251 (Ethiopia)</option>
+                                <option value="+211">+211 (South Sudan)</option>
+                                <option value="+252">+252 (Somalia)</option>
+                                <option value="+27">+27 (South Africa)</option>
+                                <option value="+234">+234 (Nigeria)</option>
+                                <option value="+233">+233 (Ghana)</option>
+                                <option value="+20">+20 (Egypt)</option>
+                                <option value="+1">+1 (US/Canada)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+61">+61 (Australia)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+971">+971 (UAE)</option>
+                            </select>
+                            <input type="tel" id="local_number" required placeholder="700 000000">
+                            <input type="hidden" id="number" name="number">
+                        </div>
                     </div>
                 </div>
-                <div class="btn-group right">
-                    <button type="button" class="btn btn-next" onclick="nextPhase(1)">Next <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
 
-            <!-- Phase 2: location Address -->
-            <div class="form-phase" id="phase2">
-                <h2><i class="fas fa-map-marker-alt"></i> Address Information</h2>
+                <h2 style="margin-top: 30px;"><i class="fas "></i> Address Information</h2>
                 <div class="form-group">
                     <label for="country">Country <span class="required">*</span></label>
                     <select id="country" name="country" required>
                         <option value="">-- Select a Country --</option>
-                        
+
                         <option value="Kenya">Kenya</option>
                         <option value="Uganda">Uganda</option>
                         <option value="Tanzania">Tanzania</option>
@@ -93,85 +108,89 @@
                     <label for="address">Full Physical Address <span class="required">*</span></label>
                     <textarea id="address" name="address" rows="3" required placeholder="Nairobi, Kenya"></textarea>
                 </div>
-                <div class="btn-group space-between">
-                    <button type="button" class="btn btn-prev" onclick="prevPhase(2)"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button type="button" class="btn btn-next" onclick="nextPhase(2)">Next <i class="fas fa-arrow-right"></i></button>
+
+                <div class="btn-group right">
+                    <button type="button" class="btn btn-next" onclick="nextPhase(1)">Next <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Phase 3: Ticket Type Selection -->
-            <div class="form-phase" id="phase3">
+            <!-- Phase 2: Ticket Type Selection -->
+            <div class="form-phase" id="phase2">
                 <h2><i class="fas fa-ticket-alt"></i> Select Ticket Type</h2>
                 <div class="ticket-selection">
                     @if(isset($ticketTypes) && count($ticketTypes) > 0)
-                    @foreach($ticketTypes as $type)
-                    <label class="ticket-option">
-                        <input type="radio" name="ticket_type_id" value="{{ $type->id }}" required {{ request('type') == $type->id ? 'checked' : '' }}>
-                        <div class="ticket-card">
-                            <h3>{{ $type->type }}</h3>
-                            <div class="ticket-price">KES {{ number_format($type->price) }}</div>
-                        </div>
-                    </label>
-                    @endforeach
+                        @foreach($ticketTypes as $type)
+                            <label class="ticket-option">
+                                <input type="radio" name="ticket_type_id" value="{{ $type->id }}" required {{ request('type') == $type->id ? 'checked' : '' }}>
+                                <div class="ticket-card">
+                                    <h3>{{ $type->type }}</h3>
+                                    <div class="ticket-price">KES {{ number_format($type->price) }}</div>
+                                </div>
+                            </label>
+                        @endforeach
                     @else
-                    <label class="ticket-option">
-                        <input type="radio" name="ticket_type_id" value="1" required>
-                        <div class="ticket-card">
-                            <h3>Un-available</h3>
-                            <div class="ticket-price">KES 0</div>
-                        </div>
-                        @endif
+                        <label class="ticket-option">
+                            <input type="radio" name="ticket_type_id" value="1" required>
+                            <div class="ticket-card">
+                                <h3>Un-available</h3>
+                                <div class="ticket-price">KES 0</div>
+                            </div>
+                    @endif
                 </div>
                 <div class="btn-group space-between">
-                    <button type="button" class="btn btn-prev" onclick="prevPhase(3)"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button type="button" class="btn btn-next" onclick="nextPhase(3)">Next <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-prev" onclick="prevPhase(2)"><i class="fas fa-arrow-left"></i>
+                        Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextPhase(2)">Next <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Phase 4: Review & Verify Information -->
-            <div class="form-phase" id="phase4">
+            <!-- Phase 3: Review & Verify Information -->
+            <div class="form-phase" id="phase3">
                 <h2><i class="fas fa-check-double"></i> Verify Your Information </h2>
+                <p style="color: var(--text-muted); margin-top: -15px; margin-bottom: 25px;">Please review the details below before proceeding to payment.</p>
+                
                 <div class="review-section">
                     <div class="review-group">
-                        <h2>Personal Details</h2>
+                        <h3><i class="fas fa-user-circle"></i> Personal Details</h3>
                         <div class="review-item">
-                            <p><strong>First Name:</strong> <span id="review-name"></span></p>
-                            <p><strong>Surname:</strong> <span id="review-surname"></span></p>
+                            <p><strong>First Name</strong> <span id="review-name"></span></p>
+                            <p><strong>Surname</strong> <span id="review-surname"></span></p>
                         </div>
                         <div class="review-item">
-                            <p><strong>Email:</strong> <span id="review-email"></span></p>
-                            <p><strong>Phone Number:</strong> <span id="review-number"></span></p>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="review-group">
-                        <h3>Address Information</h3>
-                        <div class="review-item">
-                            <p><strong>Country:</strong> <span id="review-country"></span></p>
-                            <p><strong>Physical Address:</strong> <span id="review-address"></span></p>
+                            <p><strong>Email</strong> <span id="review-email"></span></p>
+                            <p><strong>Phone Number</strong> <span id="review-number"></span></p>
                         </div>
                     </div>
-                    <br>
-                    <br>
 
                     <div class="review-group">
-                        <h3>Ticket Selection</h3>
+                        <h3><i class="fas fa-map-marker-alt"></i> Address Information</h3>
                         <div class="review-item">
-                            <p><strong>Ticket Type:</strong> <span id="review-ticket-type"></span></p>
-                            <p><strong>Price:</strong> <span id="review-ticket-price"></span></p>
+                            <p><strong>Country</strong> <span id="review-country"></span></p>
+                            <p><strong>Physical Address</strong> <span id="review-address"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="review-group">
+                        <h3><i class="fas fa-ticket-alt"></i> Ticket Selection</h3>
+                        <div class="review-item">
+                            <p><strong>Ticket Type</strong> <span id="review-ticket-type"></span></p>
+                            <p><strong>Price</strong> <span id="review-ticket-price"></span></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="btn-group space-between">
-                    <button type="button" class="btn btn-prev" onclick="prevPhase(4)"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button type="button" class="btn btn-next" onclick="nextPhase(4)">Proceed to Payment <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" class="btn btn-prev" onclick="prevPhase(3)"><i class="fas fa-arrow-left"></i>
+                        Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextPhase(3)">Proceed to Payment <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Phase 5: Payment Details -->
-            <div class="form-phase" id="phase5">
+            <!-- Phase 4: Payment Details -->
+            <div class="form-phase" id="phase4">
                 <h2><i class="fas fa-credit-card"></i> Payment Details</h2>
 
                 <div class="payment-instructions">
@@ -188,14 +207,17 @@
                 </div>
 
                 <div class="form-group mt-input">
-                    <label for="payment_reference">Payment Reference / M-PESA Code <span class="required">*</span></label>
-                    <input type="text" id="payment_reference" name="payment_reference" required placeholder="e.g. QKT5ABCDEF">
+                    <label for="payment_reference">Payment Reference / M-PESA Code <span
+                            class="required">*</span></label>
+                    <input type="text" id="payment_reference" name="payment_reference" required
+                        placeholder="e.g. QKT5ABCDEF">
                 </div>
 
                 <div class="form-group mt-input">
                     <label for="payment_proof">Upload Proof of Payment (Optional)</label>
                     <div class="file-upload">
-                        <input type="file" id="payment_proof" name="payment_proof" accept="image/*,.pdf" class="file-input">
+                        <input type="file" id="payment_proof" name="payment_proof" accept="image/*,.pdf"
+                            class="file-input">
                         <div class="file-upload-box">
                             <i class="fas fa-cloud-upload-alt upload-icon"></i>
                             <p>Click or drag file here to upload</p>
@@ -205,8 +227,10 @@
                 </div>
 
                 <div class="btn-group space-between">
-                    <button type="button" class="btn btn-prev" onclick="prevPhase(5)"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button type="submit" class="btn btn-submit"><i class="fas fa-check-circle"></i> Complete Registration</button>
+                    <button type="button" class="btn btn-prev" onclick="prevPhase(4)"><i class="fas fa-arrow-left"></i>
+                        Previous</button>
+                    <button type="submit" class="btn btn-submit"><i class="fas fa-check-circle"></i> Complete
+                        Registration</button>
                 </div>
             </div>
         </form>
@@ -247,27 +271,53 @@
 
         // Add event listeners to remove error class on input
         document.querySelectorAll('input, select, textarea').forEach(element => {
-            element.addEventListener('input', function() {
+            element.addEventListener('input', function () {
                 this.classList.remove('error');
             });
         });
 
+        // Phone number formatting
+        function updateHiddenNumber() {
+            const countryCode = document.getElementById('country_code');
+            const localNumberInput = document.getElementById('local_number');
+            const hiddenNumber = document.getElementById('number');
+            
+            if (countryCode && localNumberInput && hiddenNumber) {
+                let localNumber = localNumberInput.value.trim();
+                // Remove leading zero if present
+                if (localNumber.startsWith('0')) {
+                    localNumber = localNumber.substring(1);
+                    localNumberInput.value = localNumber;
+                }
+                hiddenNumber.value = countryCode.value + localNumber;
+            }
+        }
+
+        const localNumberInput = document.getElementById('local_number');
+        if (localNumberInput) {
+            localNumberInput.addEventListener('input', updateHiddenNumber);
+            document.getElementById('country_code').addEventListener('change', updateHiddenNumber);
+        }
+
         function nextPhase(currentPhase) {
+            if (currentPhase === 1) {
+                updateHiddenNumber();
+            }
             if (!validatePhase(currentPhase)) return;
 
-            // Populate review section when moving to phase 4
-            if (currentPhase === 3) {
+            // Populate review section when moving to phase 3
+            if (currentPhase === 2) {
                 document.getElementById('review-name').textContent = document.getElementById('name').value;
                 document.getElementById('review-surname').textContent = document.getElementById('surname').value;
                 document.getElementById('review-email').textContent = document.getElementById('email').value;
                 document.getElementById('review-number').textContent = document.getElementById('number').value;
                 document.getElementById('review-country').textContent = document.getElementById('country').value;
                 document.getElementById('review-address').textContent = document.getElementById('address').value || 'Not provided';
-                
+
                 const selectedTicket = document.querySelector('input[name="ticket_type_id"]:checked');
                 const ticketText = selectedTicket ? selectedTicket.closest('.ticket-option').querySelector('h3').textContent : '';
                 const ticketPrice = selectedTicket ? selectedTicket.closest('.ticket-option').querySelector('.ticket-price').textContent : '';
-                
+
                 document.getElementById('review-ticket-type').textContent = ticketText;
                 document.getElementById('review-ticket-price').textContent = ticketPrice;
             }
@@ -292,7 +342,7 @@
         }
 
         // Handle Form Submit via AJAX to only update part of DOM
-        document.getElementById('multi-stage-form').addEventListener('submit', async function(e) {
+        document.getElementById('multi-stage-form').addEventListener('submit', async function (e) {
             e.preventDefault();
             const form = this;
             const submitBtn = form.querySelector('.btn-submit');
@@ -351,7 +401,7 @@
         const fileUploadBox = document.querySelector('.file-upload-box');
 
         if (fileInput) {
-            fileInput.addEventListener('change', function() {
+            fileInput.addEventListener('change', function () {
                 if (this.files && this.files[0]) {
                     fileNameDisplay.textContent = this.files[0].name;
                     fileUploadBox.classList.add('has-file');

@@ -34,7 +34,7 @@
     </main>
 
     <footer class="footer">
-        <div class="footer-section">
+        <!-- <div class="footer-section">
             <h3><i class="fas fa-university"></i> The Co-operative University of Kenya </h3>
             <p><i class="fas fa-map-marker-alt"></i> Address: P.O Box 24814-00502 Karen, Nairobi </p>
             <br />
@@ -56,12 +56,15 @@
                 <a href="https://ke.linkedin.com/company/the-co-operative-university-of-kenya"><i
                         class="fab fa-linkedin-in"></i></a>
             </div>
-        </div>
+        </div> -->
 
     </footer>
     <div class="footer-bottom">
         <br />
-        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; 2025 The Co-operative University of Kenya. All Rights Reserved.</p>
+        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy;
+            <script>document.write(new Date().getFullYear());</script> The Co-operative University of Kenya. All Rights
+            Reserved.
+        </p>
     </div>
 </body>
 

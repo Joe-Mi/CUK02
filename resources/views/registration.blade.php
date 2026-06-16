@@ -1,40 +1,43 @@
 <x-layout>
   @push('styles')
-  <link rel="stylesheet" href="{{ asset('assets/css/registration.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/registration.css') }}">
   @endpush
   <!-- Landing Page -->
-  <div class="header">
+  <!-- <div class="header">
     <div class="overlay">
       <h1 class="header-title">2025 Registration</h1>
       <p class="header-subtitle">Register Today, Unlock Tomorrow’s Opportunities.</p>
     </div>
-  </div>
+  </div> -->
 
   <!-- Main body -->
+  <div class="payment">
+    <h1>Register Today, Unlock Tomorrow’s Opportunities.</h1>
+  </div>
   <div class="container">
     @forelse($ticketTypes as $ticketType)
-    <div class="card">
-      <h2><i class="fas fa-user-tie"></i>{{$ticketType->type}}</h2>
-      <div class="price">KES {{$ticketType->price}} (VAT inclusive)</div>
-      <p><strong>Price per delegate</strong></p>
-      <a href="{{ url('/ticket/create') }}?type={{$ticketType->id}}">
-        <button>Register Now</button>
-      </a>
-    </div>
+      <div class="card">
+        <h2><i class="fas fa-user-tie"></i>{{$ticketType->type}}</h2>
+        <div class="price">KES {{$ticketType->price}} (VAT inclusive)</div>
+        <p><strong>Price per delegate</strong></p>
+        <a href="{{ url('/ticket/create') }}?type={{$ticketType->id}}">
+          <button>Register Now</button>
+        </a>
+      </div>
     @empty
-    <!-- ticket unavailable Card -->
-    <div class="card">
-      <h2><i class=""></i> Thanks for Checking out !!! </h2>
-      <p>Active Conferences are currently unavailable. please contact us for more information.
-      </p>
-      
-    </div>
+      <!-- ticket unavailable Card -->
+      <div class="card">
+        <h2><i class=""></i> Thanks for Checking out !!! </h2>
+        <p>Active Conferences are currently unavailable. please contact us for more information.
+        </p>
+
+      </div>
     @endforelse
   </div>
 
   <!-- Payment details -->
   <div class="payment">
-    <h1>Payment Details</h1>
+    <!-- <h1>Payment Details</h1>
 
     <h2>Bank Transfer</h2>
     <div class="details">
@@ -61,7 +64,7 @@
       <p>That above fee covers meals, conference materials, conference proceedings publication. (Delegates will cater
         for their travels, accommodation and any other incidentals)</p>
 
-    </div>
+    </div> -->
   </div>
 
   <!--MAIL HOVERING BUTTON-->

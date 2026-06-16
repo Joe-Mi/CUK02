@@ -1,7 +1,7 @@
 <x-layout :hide-navbar="true">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JETELD42YM"></script>
     <script>
@@ -20,8 +20,10 @@
         <div class="popup-container" id="popup">
             <div class="popup-box">
                 <button class="close-btn" onclick="closePopup()">X</button>
-                <a href="https://forms.gle/dnksXCo24Ju1mYJ5A" target="_blank" class="image-link">
+                <a href="{{ route('tickets.index') }}" target="_blank" class="image-link">
                     <img src="{{ asset('assets/img/Conference banner 2025B.jpg') }}" alt="Event Poster">
+                </a>
+                <!-- <p class="text-center fw-bold mt-2 fs-4">123445686</p> -->
             </div>
         </div>
 
@@ -191,7 +193,7 @@
             </a>
         </body>
     </body>
-    
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </x-layout>

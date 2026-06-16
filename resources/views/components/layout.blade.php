@@ -90,7 +90,7 @@
             <h3><i class="fas fa-link"></i> Quick Links</h3>
             <ul>
                 <li><a href="https://conference.cuk.ac.ke/">Conference 2024</a></li>
-                <li><a href="registration.php"> Register </a></li>
+                <li><a href="{{ route('tickets.index') }}"> Register </a></li>
                 <!-- <li><a href="cuk9/index.php" target="_blank">2024 Conference </a></li> -->
             </ul>
         </div>
@@ -107,8 +107,10 @@
     </footer>
     <div class="footer-bottom">
         <br />
-        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy; <script>document.write(new Date().getFullYear());</script> The Co-operative University
-            of Kenya. All Rights Reserved.</p>
+        <p><img src="{{ asset('assets/img/coop uni.png') }}" alt="Company Logo"> &copy;
+            <script>document.write(new Date().getFullYear());</script> The Co-operative University
+            of Kenya. All Rights Reserved.
+        </p>
     </div>
 </body>
 

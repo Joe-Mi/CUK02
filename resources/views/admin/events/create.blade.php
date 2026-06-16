@@ -6,13 +6,13 @@
         </div>
 
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <form action="{{ route('admin.events.store') }}" method="POST">
@@ -54,21 +54,25 @@
             <div id="ticket-types-container">
                 <div class="ticket-type-row" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
                     <div style="flex: 2; min-width: 200px;">
-                        <input type="text" name="ticket_types[0][type]" class="form-control" placeholder="Ticket Type (e.g. Regular)" required>
+                        <input type="text" name="ticket_types[0][type]" class="form-control"
+                            placeholder="Ticket Type (e.g. Regular)" required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
-                        <input type="number" name="ticket_types[0][price]" class="form-control" placeholder="Price (e.g. 1000)" required>
+                        <input type="number" name="ticket_types[0][price]" class="form-control"
+                            placeholder="Price (e.g. 1000)" required>
                     </div>
                 </div>
             </div>
-            <button type="button" id="add-ticket-type" class="btn btn-secondary" style="margin-top: 10px;">Add Ticket Type</button>
+            <button type="button" id="add-ticket-type" class="btn btn-secondary" style="margin-top: 10px;">Add Ticket
+                Type</button>
 
             <hr style="margin: 30px 0;">
             <h3>Key Dates</h3>
             <div id="key-dates-container">
                 <div class="key-date-row" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 200px;">
-                        <input type="text" name="key_dates[0][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                        <input type="text" name="key_dates[0][title]" class="form-control"
+                            placeholder="Title (e.g. Early Bird)" required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
                         <input type="text" name="key_dates[0][type]" class="form-control" placeholder="Type" required>
@@ -87,20 +91,24 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="add-key-date" class="btn btn-secondary" style="margin-top: 10px;">Add Key Date</button>
+            <button type="button" id="add-key-date" class="btn btn-secondary" style="margin-top: 10px;">Add Key
+                Date</button>
 
             <hr style="margin: 30px 0;">
             <h3>Schedule Slots</h3>
             <div id="EventSchedule-container">
                 <div class="EventSchedule-row" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 200px;">
-                        <input type="text" name="EventSchedule[0][title]" class="form-control" placeholder="Title (e.g. Early Bird)" required>
+                        <input type="text" name="EventSchedule[0][title]" class="form-control"
+                            placeholder="Title (e.g. Early Bird)" required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
-                        <input type="text" name="EventSchedule[0][speaker]" class="form-control" placeholder="speaker" required>
+                        <input type="text" name="EventSchedule[0][speaker]" class="form-control" placeholder="speaker"
+                            required>
                     </div>
                     <div style="flex: 1; min-width: 150px;">
-                        <input type="text" name="EventSchedule[0][location]" class="form-control" placeholder="location" required>
+                        <input type="text" name="EventSchedule[0][location]" class="form-control" placeholder="location"
+                            required>
                     </div>
                     <div style="flex: 1; min-width: 180px;">
                         <input type="datetime-local" name="EventSchedule[0][date]" class="form-control" required>
@@ -119,7 +127,8 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="add-time-slot" class="btn btn-secondary" style="margin-top: 10px;">Add Time slot</button>
+            <button type="button" id="add-time-slot" class="btn btn-secondary" style="margin-top: 10px;">Add Time
+                slot</button>
 
             <div class="actions" style="margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">Create Event</button>
@@ -129,7 +138,7 @@
 
     <script>
         let ticketTypeIndex = 1;
-        document.getElementById('add-ticket-type').addEventListener('click', function() {
+        document.getElementById('add-ticket-type').addEventListener('click', function () {
             const container = document.getElementById('ticket-types-container');
             const row = document.createElement('div');
             row.className = 'ticket-type-row';
@@ -148,12 +157,12 @@
             container.appendChild(row);
             ticketTypeIndex++;
 
-            row.querySelector('.remove-new-ticket-type').addEventListener('click', function() {
+            row.querySelector('.remove-new-ticket-type').addEventListener('click', function () {
                 row.remove();
             });
         });
 
-        document.getElementById('add-key-date').addEventListener('click', function() {
+        document.getElementById('add-key-date').addEventListener('click', function () {
             const container = document.getElementById('key-dates-container');
             const index = container.children.length;
             const row = document.createElement('div');
@@ -182,7 +191,7 @@
             container.appendChild(row);
         });
 
-        document.getElementById('add-time-slot').addEventListener('click', function() {
+        document.getElementById('add-time-slot').addEventListener('click', function () {
             const container = document.getElementById('EventSchedule-container');
             const index = container.children.length;
             const row = document.createElement('div');
